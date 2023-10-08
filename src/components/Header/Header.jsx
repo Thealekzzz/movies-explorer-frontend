@@ -28,7 +28,7 @@ const Header = ({ isColored }) => {
 
         <div className="header__right">
           {isLogged ? (
-            <Link to={'/edit'}>
+            <Link to='/profile'>
               <div className="header__profile">
                 <p className="header__profile-text">Аккаунт</p>
                 <div className="header__profile-icon"></div>
@@ -36,8 +36,8 @@ const Header = ({ isColored }) => {
             </Link>
           ) : (
             <nav className="header__nav header__nav_extended">
-              <Link className='header__link header__link_small hoverable' to={'/signup'}>Регистрация</Link>
-              <Link className='header__link header__link_small header__link_accent hoverable' to={'/signin'}>Войти</Link>
+              <Link className='header__link header__link_small hoverable' to='/signup'>Регистрация</Link>
+              <Link className='header__link header__link_small header__link_accent hoverable' to='/signin'>Войти</Link>
             </nav>
           )}
 
