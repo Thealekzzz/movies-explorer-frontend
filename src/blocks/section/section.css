@@ -1,0 +1,10 @@
+.section {
+  padding: 110px 0;
+  background: #202020;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 90px 0;
+  }
+}

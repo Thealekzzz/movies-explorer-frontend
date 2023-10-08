@@ -1,0 +1,15 @@
+.portfolio {
+  padding: 0 0 115px;
+}
+
+@media (max-width: 768px) {
+  .portfolio {
+    padding-bottom: 90px;
+  }
+}
+
+@media (max-width: 400px) {
+  .portfolio {
+    padding-bottom: 70px;
+  }
+}

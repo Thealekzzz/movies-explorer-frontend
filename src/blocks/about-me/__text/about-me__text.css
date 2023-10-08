@@ -1,0 +1,22 @@
+.about-me__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  font-feature-settings: 'clig' off, 'liga' off;
+}
+
+@media (max-width: 768px) {
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+
+    margin-bottom: 40px;
+  }
+}

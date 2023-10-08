@@ -1,0 +1,27 @@
+.techs__tech {
+  width: 90px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  background: #303030;
+
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+
+}
+
+@media (max-width: 768px) {
+  .techs__tech {
+    width: 84px;
+    height: 57px;
+    
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.48px;
+  }
+}

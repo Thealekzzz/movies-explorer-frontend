@@ -1,0 +1,21 @@
+.section__small-title {
+  color: #8B8B8B;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  font-feature-settings: 'clig' off, 'liga' off;
+
+  margin-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+  .section__small-title {
+    color: #A0A0A0;
+  }
+}
+
+@media (max-width: 400px) {
+  .section__small-title {
+    font-size: 14px;
+  }
+}

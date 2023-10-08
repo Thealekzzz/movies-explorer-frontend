@@ -1,0 +1,18 @@
+.search__button {
+  border-radius: 48px;
+  background: #4285F4;
+
+  padding: 8px 10px;
+
+  outline: none;
+  border: none;
+
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+
+  cursor: pointer;
+
+}

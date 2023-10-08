@@ -1,0 +1,12 @@
+.footer__link {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  font-feature-settings: 'clig' off, 'liga' off;
+}
+
+@media (max-width: 400px) {
+  .footer__link {
+    font-size: 12px;
+  }
+}

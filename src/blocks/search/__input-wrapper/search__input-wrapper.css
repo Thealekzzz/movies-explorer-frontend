@@ -1,0 +1,6 @@
+.search__input-wrapper {
+  display: flex;
+  gap: 10px;
+
+  flex-grow: 1;
+}

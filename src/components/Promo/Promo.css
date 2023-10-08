@@ -1,0 +1,5 @@
+@import url(../../blocks/container/container.css);
+
+@import url(../../blocks/promo/promo.css);
+@import url(../../blocks/promo/__text/promo__text.css);
+@import url(../../blocks/promo/__container/promo__container.css);

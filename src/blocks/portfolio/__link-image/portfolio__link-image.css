@@ -1,0 +1,13 @@
+.portfolio__link-image {
+  transition: transform .2s;
+}
+
+.portfolio__link-image:hover {
+  transform: scale(1.1) translateY(-2px) translateX(2px);
+}
+
+@media (max-width: 400px) {
+  .portfolio__link-image {
+    width: 18px;
+  }
+}

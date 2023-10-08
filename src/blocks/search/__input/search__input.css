@@ -1,0 +1,28 @@
+.search__input {
+  color: #8B8B8B;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+
+  background-color: transparent;
+
+  flex-grow: 1;
+
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+
+  outline: none;
+  border: none;
+
+}
+
+@media (max-width: 700px) {
+  .search__input {
+    font-size: 14px;
+    width: 100%;
+    min-width: 100px;
+  }
+}

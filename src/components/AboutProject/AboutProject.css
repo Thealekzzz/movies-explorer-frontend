@@ -1,0 +1,18 @@
+@import url(../../blocks/container/container.css);
+
+@import url(../../blocks/section/section.css);
+@import url(../../blocks/section/__title/section__title.css);
+@import url(../../blocks/section/__title-wrapper/section__title-wrapper.css);
+
+@import url(../../blocks/about-project/__info-block/about-project__info-block.css);
+@import url(../../blocks/about-project/__info-block-item/about-project__info-block-item.css);
+@import url(../../blocks/about-project/__info-header/about-project__info-header.css);
+@import url(../../blocks/about-project/__info-text/about-project__info-text.css);
+
+@import url(../../blocks/about-project/__timing/about-project__timing.css);
+@import url(../../blocks/about-project/__timing/_colored/about-project__timing_colored.css);
+@import url(../../blocks/about-project/__timing-block/about-project__timing-block.css);
+@import url(../../blocks/about-project/__timing-label/about-project__timing-label.css);
+
+
+
