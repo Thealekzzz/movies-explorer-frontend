@@ -21,8 +21,8 @@ const Header = ({ isColored }) => {
             <img src={logoIcon} alt="Логотип" className="header__logo" />
           </Link>
           <nav className="header__nav">
-            <Link className="header__link hoverable" to={'/films'}>Фильмы</Link>
-            <Link className="header__link hoverable" to={'/saved'}>Сохранённые фильмы</Link>
+            <Link className="header__link hoverable" to={'/movies'}>Фильмы</Link>
+            <Link className="header__link hoverable" to={'/saved-movies'}>Сохранённые фильмы</Link>
           </nav>
         </div>
 
