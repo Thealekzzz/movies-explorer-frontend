@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 const Main = () => {
   return (
     <>
-      <Header />
+      <Header isColored={true} />
       <Promo />
       <AboutProject />
       <Techs />

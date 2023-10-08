@@ -1,0 +1,12 @@
+.not-found__subtitle {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+@media (max-width: 450px) {
+  .not-found__subtitle {
+    font-size: 12px;
+  }
+}

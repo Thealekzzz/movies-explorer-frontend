@@ -1,0 +1,22 @@
+.auth__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+
+  padding: 70px 0 40px;
+}
+
+@media (max-width: 800px) {
+  .auth__header {
+    padding: 232px 0 40px;
+  }
+}
+
+@media (max-width: 450px) {
+  .auth__header {
+    align-items: center;
+    padding: 56px 0 80px;
+    gap: 50px;
+  }
+}

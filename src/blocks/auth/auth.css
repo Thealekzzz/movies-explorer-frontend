@@ -1,0 +1,19 @@
+.auth {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: 396px;
+  margin: 0 auto;
+}
+
+@media (max-width: 450px) {
+  .auth {
+    height: 100vh;
+    width: 100%;
+    max-width: unset;
+
+    padding: 0 30px;
+  }
+}
