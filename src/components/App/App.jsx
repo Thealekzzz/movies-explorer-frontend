@@ -6,6 +6,10 @@ import './App.css';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -21,6 +25,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/movies' element={<Movies />} />
+          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route path='/signin' element={<Login />} />
+          <Route path='/signup' element={<Register />} />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
       </IsLoggedContext.Provider>
     </>

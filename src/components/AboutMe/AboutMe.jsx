@@ -17,7 +17,7 @@ const AboutMe = () => {
               Родился и живу в Санкт-Петербурге. Учился на инженера в Университете ИТМО, но на втором курсе заинетерсовался фронтенд разработкой. Сделал множество проектов для портфолио и автоматизации личных задач. С осени 2022 являюсь фулл-стек разработчиком сервиса для автомазизации вычислений в сельском хозяйстве.
             </p>
 
-            <a href="https://github.com/Thealekzzz" className="about-me__link hoverable">Github</a>
+            <a href="https://github.com/Thealekzzz" target='_blank' rel='noreferrer' className="about-me__link hoverable">Github</a>
           </div>
 
           <img src="https://sun9-43.userapi.com/impg/hjHDCtiz252auBYaPuJOqIH7Jv5gH3viG_vpdw/_IfKIStIVes.jpg?size=960x1280&quality=95&sign=468aad0ec23325aeb0087122cb78c7c5&type=album" alt="Фото студента на фоне Московского государственного университета" className="about-me__image" />

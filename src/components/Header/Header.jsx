@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { PropTypes } from 'prop-types';
 
 import IsLoggedContext from '../../contexts/IsLoggedContext';
 
@@ -7,11 +8,13 @@ import './Header.css';
 import logoIcon from '../../images/logo.svg';
 import burgerIcon from '../../images/burger.svg';
 
-const Header = () => {
+const Header = ({ isColored }) => {
   const isLogged = useContext(IsLoggedContext);
 
   return (
-    <header className="header header_colored">
+    <header
+      className={`header ${isColored ? 'header_colored' : ''}`}
+    >
       <div className="container header__container container_justify_sides">
         <div className="header__left">
           <Link to={'/'} className='hoverable'>
@@ -45,6 +48,10 @@ const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  isColored: PropTypes.bool,
 };
 
 export default Header;
