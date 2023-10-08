@@ -7,8 +7,13 @@ import IsLoggedContext from '../../contexts/IsLoggedContext';
 import './Header.css';
 import logoIcon from '../../images/logo.svg';
 import burgerIcon from '../../images/burger.svg';
+import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
+import ProfileButton from '../ProfileButton/ProfileButton';
+import useWindowDimensions from '../../hooks/getWindowDimensions';
 
 const Header = ({ isColored }) => {
+  const { setIsMenuOpen } = useContext(IsMenuOpenContext);
+  const { width } = useWindowDimensions();
   const isLogged = useContext(IsLoggedContext);
 
   return (
@@ -27,23 +32,23 @@ const Header = ({ isColored }) => {
         </div>
 
         <div className="header__right">
-          {isLogged ? (
-            <Link to='/profile'>
-              <div className="header__profile">
-                <p className="header__profile-text">Аккаунт</p>
-                <div className="header__profile-icon"></div>
-              </div>
-            </Link>
+          {width > 768 ? (
+            isLogged ? (
+              <ProfileButton />
+            ) : (
+              <nav className="header__nav header__nav_extended">
+                <Link className='header__link header__link_small hoverable' to='/signup'>Регистрация</Link>
+                <Link className='header__link header__link_small header__link_accent hoverable' to='/signin'>Войти</Link>
+              </nav>
+            )
+
           ) : (
-            <nav className="header__nav header__nav_extended">
-              <Link className='header__link header__link_small hoverable' to='/signup'>Регистрация</Link>
-              <Link className='header__link header__link_small header__link_accent hoverable' to='/signin'>Войти</Link>
-            </nav>
+            <button className="header__burger hoverable" onClick={() => setIsMenuOpen(true)}>
+              <img src={burgerIcon} alt="Бургер-меню, кнопка" />
+            </button>
+
           )}
 
-          <div className="header__burger hoverable">
-            <img src={burgerIcon} alt="Бургер-меню, кнопка" />
-          </div>
         </div>
       </div>
     </header>

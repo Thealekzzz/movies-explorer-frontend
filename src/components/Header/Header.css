@@ -18,8 +18,5 @@
 @import url(../../blocks/header/__link/_active/header__link_active.css);
 
 @import url(../../blocks/header/__right/header__right.css);
-@import url(../../blocks/header/__profile/header__profile.css);
-@import url(../../blocks/header/__profile-text/header__profile-text.css);
-@import url(../../blocks/header/__profile-icon/header__profile-icon.css);
 
 @import url(../../blocks/header/__burger/header__burger.css);

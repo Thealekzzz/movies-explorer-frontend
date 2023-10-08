@@ -1,0 +1,6 @@
+.menu__link {
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-weight: 500;
+}

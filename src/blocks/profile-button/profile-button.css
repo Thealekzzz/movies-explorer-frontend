@@ -1,4 +1,4 @@
-.header__profile {
+.profile-button {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -12,12 +12,6 @@
   cursor: pointer;
 }
 
-.header__profile:hover {
+.profile-button:hover {
   background-color: #00000033;
-}
-
-@media (max-width: 768px) {
-  .header__profile {
-    display: none;
-  }
 }
