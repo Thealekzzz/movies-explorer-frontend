@@ -1,3 +1,4 @@
 @import url(../../blocks/profile-button/profile-button.css);
 @import url(../../blocks/profile-button/__icon/profile-button__icon.css);
+@import url(../../blocks/profile-button/__icon/_colored/profile-button__icon_colored.css);
 @import url(../../blocks/profile-button/__text/profile-button__text.css);

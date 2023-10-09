@@ -34,7 +34,7 @@ const Header = ({ isColored }) => {
         <div className="header__right">
           {width > 768 ? (
             isLogged ? (
-              <ProfileButton />
+              <ProfileButton isColored={isColored} />
             ) : (
               <nav className="header__nav header__nav_extended">
                 <Link className='header__link header__link_small hoverable' to='/signup'>Регистрация</Link>
