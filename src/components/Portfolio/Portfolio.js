@@ -10,19 +10,19 @@ const Portfolio = () => {
 
         <ul className="portfolio__links">
           <li className="portfolio__link-item">
-            <a href="#" className="portfolio__link hoverable">
+            <a href="https://thealekzzz.github.io/russian-travel/" target='_blank' rel='noreferrer' className="portfolio__link hoverable">
               <span className="portfolio__link-name">Статичный сайт</span>
               <img className="portfolio__link-image" src={arrowIcon} alt="Перейти, ссылка" />
             </a>
           </li>
           <li className="portfolio__link-item">
-            <a href="#" className="portfolio__link hoverable">
+            <a href="https://thealekzzz.github.io/currency/" target='_blank' rel='noreferrer' className="portfolio__link hoverable">
               <span className="portfolio__link-name">Адаптивный сайт</span>
               <img className="portfolio__link-image" src={arrowIcon} alt="Перейти, ссылка" />
             </a>
           </li>
           <li className="portfolio__link-item">
-            <a href="#" className="portfolio__link hoverable">
+            <a href="https://kznv.alex.nomoreparties.co" target='_blank' rel='noreferrer' className="portfolio__link hoverable">
               <span className="portfolio__link-name">Одностраничное приложение</span>
               <img className="portfolio__link-image" src={arrowIcon} alt="Перейти, ссылка" />
             </a>
