@@ -18,7 +18,7 @@ import Menu from '../Menu/Menu';
 function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,9 +32,6 @@ function App() {
       })
     }, 400);
   }, []);
-
-  console.log(isMenuOpen);
-
 
   return (
     <>
