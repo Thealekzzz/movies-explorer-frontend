@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import userDataContext from '../../contexts/UserDataContext';
+import userDataContext from '../../contexts/userDataContext';
 
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import Divider from '../Divider/Divider';
