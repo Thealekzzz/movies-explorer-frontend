@@ -4,7 +4,7 @@ import './Divider.css';
 const Divider = ({ type, height }) => {
   return (
     <div
-      className={`divider ${type === 'horizontal' ? 'divider__horizontal' : ''}`}
+      className={`divider ${type === 'horizontal' ? 'divider_horizontal' : ''}`}
       style={{
         height: type === 'vertical' ? `${height || 40}px` : '1px',
       }}
