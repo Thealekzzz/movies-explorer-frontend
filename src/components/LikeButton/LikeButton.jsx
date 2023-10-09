@@ -23,7 +23,7 @@ const LikeButton = ({ isLiked }) => {
   };
 
   return (
-    <div
+    <button
       className='like-button hoverable'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -40,7 +40,7 @@ const LikeButton = ({ isLiked }) => {
       ) : (
         <img src={like} alt="like button" />
       )}
-    </div>
+    </button>
   );
 };
 
