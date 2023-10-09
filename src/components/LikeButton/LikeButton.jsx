@@ -18,11 +18,16 @@ const LikeButton = ({ isLiked }) => {
     setIsHovered(false);
   };
 
+  const handleClick = () => {
+    // Обновить стейт в родительском компоненте
+  };
+
   return (
     <div
       className='like-button hoverable'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       {isLiked ? (
         isHovered ? (
