@@ -21,6 +21,7 @@ const Login = () => {
         <div className="auth__form-field">
           <label htmlFor="email" className="auth__form-label">E-mail</label>
           <input
+            required
             type="email"
             name='email'
             id="email"
@@ -37,6 +38,7 @@ const Login = () => {
         <div className="auth__form-field">
           <label htmlFor="password" className="auth__form-label">Пароль</label>
           <input
+            required
             type="password"
             name='password'
             id="password"
