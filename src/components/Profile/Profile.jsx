@@ -26,7 +26,7 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <div className="profile">
+      <main className="profile">
         <h1 className="profile__title">Привет, {user.name}</h1>
 
         <form className="profile__fields">
@@ -76,7 +76,7 @@ const Profile = () => {
             <button className="profile__text-button profile__text-button_red hoverable" disabled={!isValid}>Выйти из аккаунта</button>
           </div>
         )}
-      </div>
+      </main>
     </>
   );
 };

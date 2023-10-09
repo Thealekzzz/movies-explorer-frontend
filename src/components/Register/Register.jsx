@@ -12,7 +12,7 @@ const Register = () => {
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   return (
-    <div className="auth">
+    <main className="auth">
       <div className="auth__header">
         <img src={logo} alt="Логотип" />
         <h1 className="auth__title">Добро пожаловать!</h1>
@@ -76,7 +76,7 @@ const Register = () => {
         <button className="auth__button hoverable" disabled={!isValid}>Зарегистрироваться</button>
         <p className="auth__action-text">Уже зарегистрированы? <Link to='/signin' className='auth__action-link hoverable'>Войти</Link></p>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -11,7 +11,7 @@ const Login = () => {
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   return (
-    <div className="auth">
+    <main className="auth">
       <div className="auth__header">
         <img src={logo} alt="Логотип" />
         <h1 className="auth__title">Рады видеть!</h1>
@@ -57,7 +57,7 @@ const Login = () => {
         <button className="auth__button hoverable" disabled={!isValid}>Войти</button>
         <p className="auth__action-text">Еще не зарегистрированы? <Link to='/signup' className='auth__action-link hoverable'>Регистрация</Link></p>
       </div>
-    </div>
+    </main>
   );
 };
 
