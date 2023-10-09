@@ -15,13 +15,13 @@ const SearchForm = () => {
   }
 
   return (
-    <div className="search">
+    <section className="search">
       <div className="search__container">
-        <div className="search__input-wrapper">
+        <form className="search__input-wrapper">
           <img className='search__icon' src={searchIcon} alt="Поиск, иконка" />
           <input type="text" className="search__input" placeholder='Фильм' />
           <button className="search__button">Найти</button>
-        </div>
+        </form>
 
         {width > 700 && (<>
           <Divider type={"vertical"} height={40} />
@@ -45,7 +45,7 @@ const SearchForm = () => {
 
       <Divider type='horizontal' />
 
-    </div>
+    </section>
   );
 };
 
