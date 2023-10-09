@@ -67,15 +67,17 @@ const MoviesCardList = ({ isLoading }) => {
       <PreLoader />
     </div>
   ) : (
-    <div className="cards">
-      <div className="cards__list">
+    <section className="cards">
+      <ul className="cards__list">
         {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <li key={movie.id} className='cards__item'>
+            <MovieCard movie={movie} />
+          </li>
         ))}
-      </div>
+      </ul>
 
       <button className="cards__more-button hoverable">Ещё</button>
-    </div>
+    </section>
   );
 };
 

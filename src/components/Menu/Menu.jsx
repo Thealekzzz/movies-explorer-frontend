@@ -28,7 +28,7 @@ const Menu = () => {
   }
 
   return width <= 768 ? (
-    <div className={`menu ${isMenuOpen ? '' : 'menu_hidden'}`}>
+    <section className={`menu ${isMenuOpen ? '' : 'menu_hidden'}`}>
       <div className="menu__inner">
         <img src={closeIcon} alt="Закрыть меню, кнопка" className="menu__close hoverable" onClick={() => { setIsMenuOpen(false) }} />
 
@@ -48,7 +48,7 @@ const Menu = () => {
         </div>
 
       </div>
-    </div>
+    </section>
   ) : (
     <></>
   );

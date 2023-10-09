@@ -11,10 +11,15 @@
 
 }
 
+@media (max-width: 1000px) {
+  .cards__list {
+    padding: 70px 30px 2px;
+  }
+}
+
 @media (max-width: 900px) {
   .cards__list {
     grid-template-columns: repeat(2, minmax(calc((100% - 20px) / 4), 1fr));
-    padding: 70px 30px 2px;
   }
 }
 
