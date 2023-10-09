@@ -4,7 +4,6 @@
 
   padding: 8px 10px;
 
-  outline: none;
   border: none;
 
   color: #FFF;
@@ -14,5 +13,10 @@
   line-height: 18px;
 
   cursor: pointer;
+  transition: transform .3s cubic-bezier(0.075, 0.82, 0.165, 1), opacity .2s;
 
+}
+
+.search__button:active {
+  transform: scale(.9);
 }

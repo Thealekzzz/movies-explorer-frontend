@@ -20,7 +20,7 @@ const SearchForm = () => {
         <form className="search__input-wrapper">
           <img className='search__icon' src={searchIcon} alt="Поиск, иконка" />
           <input type="text" className="search__input" placeholder='Фильм' />
-          <button className="search__button">Найти</button>
+          <button className="search__button hoverable">Найти</button>
         </form>
 
         {width > 700 && (<>

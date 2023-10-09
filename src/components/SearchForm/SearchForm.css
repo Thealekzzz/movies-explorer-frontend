@@ -1,3 +1,5 @@
+@import url(../../blocks/hoverable/hoverable.css);
+
 @import url(../../blocks/search/search.css);
 
 @import url(../../blocks/search/__input-wrapper/search__input-wrapper.css);
