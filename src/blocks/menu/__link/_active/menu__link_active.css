@@ -1,0 +1,16 @@
+.menu__link_active {
+  position: relative;
+}
+
+.menu__link_active::after {
+  content: "";
+  
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+
+  height: 2px;
+  width: 100%;
+
+  background-color: white;
+}

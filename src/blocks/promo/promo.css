@@ -1,0 +1,22 @@
+.promo {
+  box-sizing: border-box;
+  height: 560px;
+  background-color: #073042;
+
+  padding: 0 0 60px 0;
+}
+
+@media (max-width: 768px) {
+  .promo {
+    height: 844px;
+    padding-bottom: 70px;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo {
+    height: 630px;
+    padding-bottom: 40px;
+    
+  }
+}

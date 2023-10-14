@@ -1,0 +1,11 @@
+.profile__text-button {
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}

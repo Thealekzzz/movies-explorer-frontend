@@ -1,0 +1,17 @@
+.about-project__info-block-item {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+@media (max-width: 768px) {
+  .about-project__info-block-item {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-project__info-block-item {
+    gap: 18px
+  }
+}

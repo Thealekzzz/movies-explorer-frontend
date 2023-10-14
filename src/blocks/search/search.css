@@ -1,0 +1,16 @@
+.search {
+  padding: 70px 70px 10px;
+  background-color: #202020;
+}
+
+@media (max-width: 1000px) {
+  .search {
+    padding: 80px 30px 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .search {
+    padding: 80px 10px 10px;
+  }
+}

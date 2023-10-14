@@ -1,0 +1,21 @@
+.about-project__info-block {
+  margin-top: 70px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+
+}
+
+@media (max-width: 768px) {
+  .about-project__info-block {
+    column-gap: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-project__info-block {
+    grid-template-columns: 1fr;
+    row-gap: 56px;
+  }
+}

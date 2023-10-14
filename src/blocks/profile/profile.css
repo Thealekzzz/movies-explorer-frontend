@@ -1,0 +1,7 @@
+.profile {
+  width: 410px;
+  height: calc(100vh - 74px);
+
+  margin: 0 auto;
+  padding: 74px 0 70px;
+}

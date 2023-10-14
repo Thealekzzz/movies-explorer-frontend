@@ -1,0 +1,14 @@
+@import url(../../blocks/profile/profile.css);
+
+@import url(../../blocks/profile/__title/profile__title.css);
+
+@import url(../../blocks/profile/__fields/profile__fields.css);
+@import url(../../blocks/profile/__field-name/profile__field-name.css);
+@import url(../../blocks/profile/__field-value/profile__field-value.css);
+@import url(../../blocks/profile/__field-input/profile__field-input.css);
+@import url(../../blocks/profile/__field/profile__field.css);
+
+@import url(../../blocks/profile/__buttons/profile__buttons.css);
+@import url(../../blocks/profile/__text-button/profile__text-button.css);
+@import url(../../blocks/profile/__text-button/_red/profile__text-button_red.css);
+@import url(../../blocks/profile/__save-button/profile__save-button.css);

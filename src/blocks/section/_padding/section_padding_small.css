@@ -1,0 +1,9 @@
+.section_padding_small {
+  padding: 100px 0;
+}
+
+@media (max-width: 768px) {
+  .section_padding_small {
+    padding: 90px 0;
+  }
+}

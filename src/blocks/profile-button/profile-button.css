@@ -1,0 +1,17 @@
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 3px 3px 3px 11px;
+
+  border-radius: 20px;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+.profile-button:hover {
+  background-color: #00000033;
+}

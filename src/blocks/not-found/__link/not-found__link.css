@@ -1,0 +1,22 @@
+.not-found__link {
+  color: #4285F4;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+
+  margin-top: auto;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 900px) {
+  .not-found__link {
+    margin-bottom: 242px;
+  }
+}
+
+@media (max-width: 450px) {
+  .not-found__link {
+    margin-bottom: 30px;
+    font-size: 12px;
+  }
+}

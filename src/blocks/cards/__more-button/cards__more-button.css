@@ -1,0 +1,30 @@
+.cards__more-button {
+  display: block;
+  
+  width: 320px;
+  height: 36px;
+
+  margin: 50px auto 80px;
+
+  border-radius: 6px;
+  border: none;
+  background: #2F2F2F;
+
+  color: #FFF;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.cards__more-button:active {
+  transform: scale(.96);
+}
+
+@media (max-width: 400px) {
+  .cards__more-button {
+    max-width: 240px;
+  }
+}

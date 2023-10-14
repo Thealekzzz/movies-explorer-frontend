@@ -1,0 +1,16 @@
+.auth__footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+
+  padding: 70px 0;
+
+}
+
+@media (max-width: 450px) {
+  .auth__footer {
+    padding: 0 0 30px;
+    margin-top: auto;
+  }
+}

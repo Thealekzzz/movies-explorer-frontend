@@ -1,0 +1,25 @@
+.techs__tech-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  width: fit-content;
+  margin: 100px auto 0;
+
+  list-style: none;
+  padding: 0;
+
+}
+
+@media (max-width: 768px) {
+  .techs__tech-list {
+    margin-top: 83px;
+  }
+}
+
+@media (max-width: 400px) {
+  .techs__tech-list {
+    margin-top: 50px;
+  }
+}

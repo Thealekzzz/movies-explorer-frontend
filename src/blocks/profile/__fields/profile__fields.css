@@ -1,0 +1,7 @@
+.profile__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+
+  margin-bottom: 220px;
+}

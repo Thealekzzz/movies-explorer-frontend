@@ -1,0 +1,24 @@
+.about-me__subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  font-feature-settings: 'clig' off, 'liga' off;
+
+  margin-bottom: 26px;
+}
+
+@media (max-width: 768px) {
+  .about-me__subtitle {
+    margin-bottom: 20px;
+
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .about-me__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
