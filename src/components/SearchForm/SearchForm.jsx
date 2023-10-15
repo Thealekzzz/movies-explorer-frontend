@@ -39,8 +39,7 @@ const SearchForm = ({ handleSubmit }) => {
         <form className="search__input-wrapper" onSubmit={onSubmit}>
           <img className='search__icon' src={searchIcon} alt="Поиск, иконка" />
           <input
-          autoComplete='off'
-            required
+            autoComplete='none'
             name='name'
             value={searchValue}
             onChange={(evt) => setSearchValue(evt.target.value)}
