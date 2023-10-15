@@ -1,15 +1,39 @@
 import './Register.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../../images/logo.svg';
 import Divider from '../Divider/Divider';
 
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { useContext, useEffect } from 'react';
+import { register } from '../../utils/MainApi';
+import IsLoggedContext from '../../contexts/IsLoggedContext';
 
 const Register = () => {
+  const { isLogged, setIsLogged } = useContext(IsLoggedContext);
+  const navigate = useNavigate();
 
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
+
+  function handleRegister() {
+    register(values)
+      .then(({ token }) => {
+        localStorage.setItem('token', token);
+        setIsLogged(true);
+
+        navigate('/movies');
+      })
+      .catch(() => {
+        console.log('Ошибка регистрации');
+      });
+  }
+  
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/');
+    }
+  }, [isLogged, navigate]);
 
   return (
     <main className="auth">
@@ -18,7 +42,7 @@ const Register = () => {
         <h1 className="auth__title">Добро пожаловать!</h1>
       </div>
 
-      <form className="auth__form">
+      <form className="auth__form" onSubmit={handleRegister}>
         <div className="auth__form-field">
           <label htmlFor="name" className="auth__form-label">Имя</label>
           <input
@@ -31,7 +55,7 @@ const Register = () => {
             minLength={2}
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.name}
+            value={values.name || ''}
           />
           <Divider type="horizontal" />
           <p className="auth__form-error">{errors.name}</p>
@@ -48,7 +72,7 @@ const Register = () => {
             placeholder='Example@domain.co'
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.email}
+            value={values.email || ''}
           />
           <Divider type="horizontal" />
           <p className="auth__form-error">{errors.email}</p>
@@ -65,7 +89,7 @@ const Register = () => {
             placeholder='********'
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.password}
+            value={values.password || ''}
           />
           <Divider type="horizontal" />
           <p className="auth__form-error">{errors.password}</p>
@@ -73,7 +97,7 @@ const Register = () => {
       </form>
 
       <div className="auth__footer">
-        <button className="auth__button hoverable" disabled={!isValid}>Зарегистрироваться</button>
+        <button className="auth__button hoverable" disabled={!isValid} onClick={handleRegister}>Зарегистрироваться</button>
         <p className="auth__action-text">Уже зарегистрированы? <Link to='/signin' className='auth__action-link hoverable'>Войти</Link></p>
       </div>
     </main>

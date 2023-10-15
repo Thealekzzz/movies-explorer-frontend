@@ -23,3 +23,15 @@ export async function login(credentials) {
 
   return checkResponse(res);
 }
+
+export async function register(credentials) {
+  const res = await fetch(`${mainApiURL}/signup`, {
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  });
+
+  return checkResponse(res);
+}
