@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { PropTypes } from 'prop-types';
 
@@ -11,7 +11,14 @@ import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import useWindowDimensions from '../../hooks/getWindowDimensions';
 
+const links = {
+  '/movies': 'Фильмы',
+  '/saved-movies': 'Сохраненные фильмы',
+};
+
 const Header = ({ isColored }) => {
+  const location = useLocation();
+
   const { setIsMenuOpen } = useContext(IsMenuOpenContext);
   const { width } = useWindowDimensions();
   const { isLogged } = useContext(IsLoggedContext);
@@ -26,8 +33,14 @@ const Header = ({ isColored }) => {
             <img src={logoIcon} alt="Логотип" className="header__logo" />
           </Link>
           <nav className="header__nav">
-            <Link className="header__link hoverable" to={'/movies'}>Фильмы</Link>
-            <Link className="header__link hoverable" to={'/saved-movies'}>Сохранённые фильмы</Link>
+            {Object.entries(links).map(([link, name]) => (
+              <Link
+                key={name}
+                className={`header__link hoverable ${location.pathname === link ? 'header__link_active' : ''}`}
+                to={link}
+              >{name}</Link>
+            ))}
+            {/* <Link className="header__link hoverable" to={'/saved-movies'}>Сохранённые фильмы</Link> */}
           </nav>
         </div>
 
