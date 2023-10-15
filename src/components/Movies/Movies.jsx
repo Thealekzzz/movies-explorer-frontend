@@ -23,9 +23,6 @@ const Movies = () => {
   const filteredMoviesNumber = filteredMovies.length;
   const shownMoviesNumber = shownMovies.length;
 
-  console.log(filteredMoviesNumber)
-
-
   async function handleSubmit(searchValue, shortFilmsOnly) {
     setIsLoading(true);
     let movies = allMovies;
