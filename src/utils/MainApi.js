@@ -48,3 +48,11 @@ export async function register(credentials) {
 
   return checkResponse(res);
 }
+
+export async function logout() {
+  const res = await fetch(`${mainApiURL}/signout`, {
+    method: 'POST',
+  });
+
+  return checkResponse(res);
+}

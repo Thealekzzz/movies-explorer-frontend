@@ -8,7 +8,7 @@ import Divider from '../Divider/Divider';
 import Header from '../Header/Header';
 
 import './Profile.css';
-import { patchMe } from '../../utils/MainApi';
+import { logout, patchMe } from '../../utils/MainApi';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -37,10 +37,12 @@ const Profile = () => {
 
   }
 
-  function handleLogout() {
+  async function handleLogout() {
     setIsLogged(false);
     localStorage.removeItem('token');
     localStorage.removeItem('search');
+    await logout();
+
     navigate('/signin');
   }
 
