@@ -8,6 +8,7 @@ import { getMovies } from "../../utils/MoviesApi";
 import { propertiesToFilterBy } from "../../consts/other";
 import useWindowDimensions from "../../hooks/getWindowDimensions";
 import { getCardsNumberByWidth } from "../../utils/other";
+import { nothingFound, typeKeywords } from "../../consts/errors";
 
 const Movies = () => {
   const { width } = useWindowDimensions();
@@ -18,6 +19,9 @@ const Movies = () => {
 
   const [isMoreAvaliable, setIsMoreAvaliable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchValue, setSearchValue] = useState('');
+  const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
 
   const cardsNumber = getCardsNumberByWidth(width);
   const filteredMoviesNumber = filteredMovies.length;
@@ -44,6 +48,10 @@ const Movies = () => {
       && (shortFilmsOnly && movie.duration <= 40 || !shortFilmsOnly)
     ));
 
+    // Сохранение запроса и результатов в LS
+    const payload = { searchValue, shortFilmsOnly, filteredMovies: filtered };
+    localStorage.setItem('previousSearch', JSON.stringify(payload));
+
     setFilteredMovies(filtered);
     setShownMovies(filtered.slice(0, cardsNumber.initial));
     setIsLoading(false);
@@ -68,17 +76,44 @@ const Movies = () => {
     }
   }, [shownMoviesNumber, filteredMoviesNumber]);
 
+  // useEffect(() => {
+  //   if (shownMoviesNumber === cardsNumber.initial) {
+  //     setShownMovies(filteredMovies.slice(0, cardsNumber.initial));
+  //   }
+  // }, [shownMoviesNumber, cardsNumber, filteredMovies]);
+
+  useEffect(() => {
+    const ls = JSON.parse(localStorage.getItem('previousSearch'));
+
+    if (ls) {
+      const { searchValue, shortFilmsOnly, filteredMovies } = ls;
+
+      setSearchValue(searchValue);
+      setShortFilmsOnly(shortFilmsOnly);
+      setFilteredMovies(filteredMovies);
+      setShownMovies(filteredMovies.slice(0, cardsNumber.initial));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   return (
     <>
       <Header />
       <main>
-        <SearchForm handleSubmit={handleSubmit} />
+        <SearchForm
+          handleSubmit={handleSubmit}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          shortFilmsOnly={shortFilmsOnly}
+          setShortFilmsOnly={setShortFilmsOnly}
+        />
         <MoviesCardList
           isLoading={isLoading}
           isMoreAvaliable={isMoreAvaliable}
           movies={shownMovies}
           onMoreButtonClick={handleMoreButtonClick}
+          noDataTitle={filteredMoviesNumber === 0 && searchValue !== '' ? nothingFound : typeKeywords}
         />
       </main>
       <Footer />

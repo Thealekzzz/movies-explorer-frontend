@@ -9,11 +9,14 @@ import Divider from '../Divider/Divider';
 import searchIcon from '../../images/search.svg';
 import './SearchForm.css';
 
-const SearchForm = ({ handleSubmit }) => {
+const SearchForm = ({
+  handleSubmit,
+  searchValue,
+  setSearchValue,
+  shortFilmsOnly,
+  setShortFilmsOnly,
+}) => {
   const { width } = useWindowDimensions();
-  
-  const [searchValue, setSearchValue] = useState('');
-  const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
 
@@ -79,6 +82,10 @@ const SearchForm = ({ handleSubmit }) => {
 
 SearchForm.propTypes = {
   handleSubmit: PropTypes.func,
+  searchValue: PropTypes.string,
+  setSearchValue: PropTypes.func,
+  shortFilmsOnly: PropTypes.bool,
+  setShortFilmsOnly: PropTypes.func,
 };
 
 export default SearchForm;

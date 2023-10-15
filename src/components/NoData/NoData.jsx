@@ -1,9 +1,10 @@
 import { PropTypes } from 'prop-types';
+import './NoData.css';
 
 const NoData = ({ title = 'Ничего не найдено' }) => {
   return (
     <div className="no-data">
-      <h2 className="no-data-title">{title}</h2>
+      <h2 className="no-data__title">{title}</h2>
     </div>
   );
 };
