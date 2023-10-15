@@ -12,6 +12,19 @@ export async function getMe() {
   return checkResponse(res);
 }
 
+export async function patchMe(userData) {
+  const res = await fetch(`${mainApiURL}/users/me`, {
+    method: 'PATCH',
+    body: JSON.stringify(userData),
+    headers: {
+      'content-type': 'application/json',
+      token: localStorage.getItem('token') || '',
+    }
+  });
+
+  return checkResponse(res);
+}
+
 export async function login(credentials) {
   const res = await fetch(`${mainApiURL}/signin`, {
     headers: {

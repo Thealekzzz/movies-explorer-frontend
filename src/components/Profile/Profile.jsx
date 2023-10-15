@@ -8,6 +8,7 @@ import Divider from '../Divider/Divider';
 import Header from '../Header/Header';
 
 import './Profile.css';
+import { patchMe } from '../../utils/MainApi';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -24,8 +25,15 @@ const Profile = () => {
   }
 
   function handleSaveData() {
-    setUser({ ...values });
-    setEditMode(false);
+    patchMe({ name: values.name, email: values.email })
+      .then((newUserData) => {
+        setUser(newUserData);
+        setEditMode(false);
+
+      })
+      .catch(() => {
+        console.log('Ошибка обновления данных');
+      });
 
   }
 

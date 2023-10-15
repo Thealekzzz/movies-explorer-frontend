@@ -24,8 +24,8 @@ function App() {
 
   useEffect(() => {
     getMe()
-      .then((data) => {
-        setUser(data);
+      .then((userData) => {
+        setUser(userData);
         setIsLogged(true);
       })
       .catch(() => {
