@@ -1,0 +1,1 @@
+export const emptySearchInput = 'Нужно ввести ключевое слово';

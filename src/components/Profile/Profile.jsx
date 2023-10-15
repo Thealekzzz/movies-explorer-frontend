@@ -1,5 +1,7 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import userDataContext from '../../contexts/userDataContext';
+import IsLoggedContext from '../../contexts/IsLoggedContext';
 
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import Divider from '../Divider/Divider';
@@ -8,7 +10,11 @@ import Header from '../Header/Header';
 import './Profile.css';
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(userDataContext);
+  const { setIsLogged } = useContext(IsLoggedContext);
+
   const [editMode, setEditMode] = useState(false);
   const { values, isValid, handleChange, handleBlur, setValues } = useFormAndValidation();
 
@@ -21,6 +27,13 @@ const Profile = () => {
     setUser({ ...values });
     setEditMode(false);
 
+  }
+
+  function handleLogout() {
+    setIsLogged(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('search');
+    navigate('/signin');
   }
 
   return (
@@ -68,12 +81,12 @@ const Profile = () => {
         </form>
 
         {editMode ? (
-          <button className="profile__save-button hoverable" onClick={handleSaveData}>Сохранить</button>
+          <button className="profile__save-button hoverable" onClick={handleSaveData} disabled={!isValid}>Сохранить</button>
 
         ) : (
           <div className="profile__buttons">
             <button className="profile__text-button hoverable" onClick={handleSetEditMode}>Редактировать</button>
-            <button className="profile__text-button profile__text-button_red hoverable" disabled={!isValid}>Выйти из аккаунта</button>
+            <button className="profile__text-button profile__text-button_red hoverable" onClick={handleLogout}>Выйти из аккаунта</button>
           </div>
         )}
       </main>

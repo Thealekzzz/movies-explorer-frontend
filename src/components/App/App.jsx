@@ -14,6 +14,8 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import Menu from '../Menu/Menu';
+import { getMe } from '../../utils/MainApi';
+import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -21,32 +23,34 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLogged(true);
-    }, 200);
-
-    setTimeout(() => {
-      setUser({
-        name: 'Василий',
-        email: 'haha@google.com',
+    getMe()
+      .then((data) => {
+        setUser(data);
+        setIsLogged(true);
       })
-    }, 400);
+      .catch(() => {
+        console.log('Ошибка при получении данных пользователя');
+        setIsLogged(false);
+      });
   }, []);
 
   return (
     <>
-      <IsLoggedContext.Provider value={isLogged}>
+      <IsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
         <UserDataContext.Provider value={{ user, setUser }}>
           <IsMenuOpenContext.Provider value={{ isMenuOpen, setIsMenuOpen }}>
 
             <Menu />
             <Routes>
               <Route path='/' element={<Main />} />
-              <Route path='/movies' element={<Movies />} />
-              <Route path='/saved-movies' element={<SavedMovies />} />
+              
               <Route path='/signin' element={<Login />} />
               <Route path='/signup' element={<Register />} />
-              <Route path='/profile' element={<Profile />} />
+              
+              <Route path='/movies' element={<ProtectedRouteElement element={Movies} isLogged={isLogged} />} />
+              <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLogged={isLogged} />} />
+              <Route path='/profile' element={<ProtectedRouteElement element={Profile} isLogged={isLogged} />} />
+              
               <Route path='/*' element={<NotFound />} />
             </Routes>
 

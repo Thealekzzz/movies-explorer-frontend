@@ -14,7 +14,7 @@ import useWindowDimensions from '../../hooks/getWindowDimensions';
 const Header = ({ isColored }) => {
   const { setIsMenuOpen } = useContext(IsMenuOpenContext);
   const { width } = useWindowDimensions();
-  const isLogged = useContext(IsLoggedContext);
+  const { isLogged } = useContext(IsLoggedContext);
 
   return (
     <header

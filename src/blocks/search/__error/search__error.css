@@ -1,0 +1,14 @@
+.search__error {
+  position: absolute;
+  bottom: -52px;
+
+  font-size: 12px;
+  color: #EE3465;
+}
+
+@media (max-width: 700px) {
+  .search__error {
+    bottom: -40px;
+    font-size: 11px;
+  }
+}
