@@ -6,17 +6,19 @@ import Divider from '../Divider/Divider';
 import { getTimeByDuration } from '../../utils/other';
 
 const MovieCard = ({ movie }) => {
-  const { image, nameRU, duration, isLiked } = movie;
+  const { image, nameRU, duration, isLiked, trailerLink } = movie;
   const [hours, minutes] = getTimeByDuration(duration);
 
   return (
     <div className="card">
-      <div
-        className="card__image"
-        style={{
-          background: `center / cover url(https://api.nomoreparties.co${image.url})`,
-        }}>
-      </div>
+      <a href={trailerLink} target='_blank' rel='noreferrer'>
+        <div
+          className="card__image"
+          style={{
+            background: `center / cover url(https://api.nomoreparties.co${image.url})`,
+          }}>
+        </div>
+      </a>
 
       <div className="card__title-wrapper">
         <p className="card__title">{nameRU}</p>

@@ -3,4 +3,14 @@
   height: 1px;
 
   padding-bottom: 56%;
+
+  transition: transform .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card__image:hover {
+  transform: scale(1.05);
+}
+
+.card__image:active {
+  transform: scale(1.02);
 }
