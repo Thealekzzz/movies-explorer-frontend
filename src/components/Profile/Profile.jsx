@@ -9,6 +9,7 @@ import Header from '../Header/Header';
 
 import './Profile.css';
 import { logout, patchMe } from '../../utils/MainApi';
+import { savingProfileError } from '../../consts/errors';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -17,11 +18,16 @@ const Profile = () => {
   const { setIsLogged } = useContext(IsLoggedContext);
 
   const [editMode, setEditMode] = useState(false);
+  const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, isValid, handleChange, handleBlur, setValues } = useFormAndValidation();
 
   function handleSetEditMode() {
     setValues({ ...user });
     setEditMode(true);
+  }
+
+  function resetStatus() {
+    setStatus((prev) => ({ ...prev, visible: false }));
   }
 
   function handleSaveData() {
@@ -30,9 +36,26 @@ const Profile = () => {
         setUser(newUserData);
         setEditMode(false);
 
+        setTimeout(() => {
+          setStatus({
+            visible: true,
+            error: false,
+            message: 'Данные сохранены',
+          });
+          
+        }, 100);
+
+        setTimeout(() => {
+          resetStatus();
+        }, 2000);
+
       })
       .catch(() => {
-        console.log('Ошибка обновления данных');
+        setStatus({
+          visible: true,
+          error: true,
+          message: savingProfileError,
+        })
       });
 
   }
@@ -90,15 +113,22 @@ const Profile = () => {
           </div>
         </form>
 
-        {editMode ? (
-          <button className="profile__save-button hoverable" onClick={handleSaveData} disabled={!isValid}>Сохранить</button>
+        <div className="profile__footer">
+          <p
+            className={`profile__status-text ${status.visible ? '' : 'profile__status-text_hidden'} ${status.error ? 'profile__status-text_error' : ''}`}
+          >{status.message}</p>
 
-        ) : (
-          <div className="profile__buttons">
-            <button className="profile__text-button hoverable" onClick={handleSetEditMode}>Редактировать</button>
-            <button className="profile__text-button profile__text-button_red hoverable" onClick={handleLogout}>Выйти из аккаунта</button>
-          </div>
-        )}
+          {editMode ? (
+            <button className="profile__save-button hoverable" onClick={handleSaveData} disabled={!isValid}>Сохранить</button>
+
+          ) : (
+
+            <div className="profile__buttons">
+              <button className="profile__text-button hoverable" onClick={handleSetEditMode}>Редактировать</button>
+              <button className="profile__text-button profile__text-button_red hoverable" onClick={handleLogout}>Выйти из аккаунта</button>
+            </div>
+          )}
+        </div>
       </main>
     </>
   );
