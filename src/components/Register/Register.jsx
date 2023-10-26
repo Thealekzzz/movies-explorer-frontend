@@ -6,19 +6,22 @@ import logo from '../../images/logo.svg';
 import Divider from '../Divider/Divider';
 
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { register } from '../../utils/MainApi';
 import IsLoggedContext from '../../contexts/IsLoggedContext';
 import userDataContext from '../../contexts/userDataContext';
+import { emailAlreadyExists, registerError } from '../../consts/errors';
 
 const Register = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
   const { setUser } = useContext(userDataContext);
   const navigate = useNavigate();
 
+  const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   function handleRegister() {
+    resetStatus();
     register(values)
       .then(({ token, ...userData }) => {
         localStorage.setItem('token', token);
@@ -27,11 +30,23 @@ const Register = () => {
 
         navigate('/movies');
       })
-      .catch(() => {
-        console.log('Ошибка регистрации');
+      .catch((err) => {
+        console.log(err);
+        setTimeout(() => {
+          setStatus({
+            visible: true,
+            error: true,
+            message: err === 'Ошибка 409' ? emailAlreadyExists : registerError,
+          });
+
+        }, 100);
       });
   }
-  
+
+  function resetStatus() {
+    setStatus((prev) => ({ ...prev, visible: false }));
+  }
+
   useEffect(() => {
     if (isLogged) {
       navigate('/movies');
@@ -100,6 +115,9 @@ const Register = () => {
       </form>
 
       <div className="auth__footer">
+        <p
+          className={`auth__status-text ${status.visible ? '' : 'auth__status-text_hidden'} ${status.error ? 'auth__status-text_error' : ''}`}
+        >{status.message}</p>
         <button className="auth__button hoverable" disabled={!isValid} onClick={handleRegister}>Зарегистрироваться</button>
         <p className="auth__action-text">Уже зарегистрированы? <Link to='/signin' className='auth__action-link hoverable'>Войти</Link></p>
       </div>

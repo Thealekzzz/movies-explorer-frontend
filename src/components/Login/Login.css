@@ -1,0 +1,19 @@
+@import url(../../blocks/auth/auth.css);
+@import url(../../blocks/auth/__header/auth__header.css);
+@import url(../../blocks/auth/__title/auth__title.css);
+
+@import url(../../blocks/auth/__form/auth__form.css);
+@import url(../../blocks/auth/__form-field/auth__form-field.css);
+@import url(../../blocks/auth/__form-label/auth__form-label.css);
+@import url(../../blocks/auth/__form-input/auth__form-input.css);
+@import url(../../blocks/auth/__form-error/auth__form-error.css);
+
+@import url(../../blocks/auth/__footer/auth__footer.css);
+
+@import url(../../blocks/auth/__status-text/auth__status-text.css);
+@import url(../../blocks/auth/__status-text/_hidden/auth__status-text_hidden.css);
+@import url(../../blocks/auth/__status-text/_error/auth__status-text_error.css);
+
+@import url(../../blocks/auth/__button/auth__button.css);
+@import url(../../blocks/auth/__action-text/auth__action-text.css);
+@import url(../../blocks/auth/__action-link/auth__action-link.css);

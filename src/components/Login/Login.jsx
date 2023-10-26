@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,15 +10,18 @@ import { login } from '../../utils/MainApi';
 import logo from '../../images/logo.svg';
 import './Login.css';
 import userDataContext from '../../contexts/userDataContext';
+import { wrongCredentials } from '../../consts/errors';
 
 const Login = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
   const { setUser } = useContext(userDataContext);
   const navigate = useNavigate();
 
+  const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   function handleLogin() {
+    resetStatus();
     login(values)
       .then(({ token, ...userData }) => {
         localStorage.setItem('token', token);
@@ -28,8 +31,19 @@ const Login = () => {
         navigate('/movies');
       })
       .catch(() => {
-        console.log('Ошибка авторизации');
+        setTimeout(() => {
+          setStatus({
+            visible: true,
+            error: true,
+            message: wrongCredentials,
+          });
+
+        }, 100);
       });
+  }
+
+  function resetStatus() {
+    setStatus((prev) => ({ ...prev, visible: false }));
   }
 
   useEffect(() => {
@@ -82,6 +96,10 @@ const Login = () => {
       </form>
 
       <div className="auth__footer">
+
+        <p
+          className={`auth__status-text ${status.visible ? '' : 'auth__status-text_hidden'} ${status.error ? 'auth__status-text_error' : ''}`}
+        >{status.message}</p>
         <button className="auth__button hoverable" disabled={!isValid} onClick={handleLogin}>Войти</button>
         <p className="auth__action-text">Еще не зарегистрированы? <Link to='/signup' className='auth__action-link hoverable'>Регистрация</Link></p>
       </div>
