@@ -1,9 +1,7 @@
-import { mainApiURL } from "../consts/urls";
 import { checkResponse } from "./other";
 
-
 export async function getMe() {
-  const res = await fetch(`${mainApiURL}/users/me`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/users/me`, {
     headers: {
       token: localStorage.getItem('token') || '',
     }
@@ -13,7 +11,7 @@ export async function getMe() {
 }
 
 export async function patchMe(userData) {
-  const res = await fetch(`${mainApiURL}/users/me`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/users/me`, {
     method: 'PATCH',
     body: JSON.stringify(userData),
     headers: {
@@ -26,7 +24,7 @@ export async function patchMe(userData) {
 }
 
 export async function login(credentials) {
-  const res = await fetch(`${mainApiURL}/signin`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/signin`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -38,7 +36,7 @@ export async function login(credentials) {
 }
 
 export async function register(credentials) {
-  const res = await fetch(`${mainApiURL}/signup`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
     headers: {
       'content-type': 'application/json',
     },
@@ -50,7 +48,7 @@ export async function register(credentials) {
 }
 
 export async function logout() {
-  const res = await fetch(`${mainApiURL}/signout`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/signout`, {
     method: 'POST',
   });
 
@@ -58,7 +56,7 @@ export async function logout() {
 }
 
 export async function getSavedMovies() {
-  const res = await fetch(`${mainApiURL}/movies`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/movies`, {
     headers: {
       token: localStorage.getItem('token') || '',
     }
@@ -82,7 +80,7 @@ export async function likeMovie(movie) {
     "movieId": movie.id,
   }
 
-  const res = await fetch(`${mainApiURL}/movies`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/movies`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
@@ -95,7 +93,7 @@ export async function likeMovie(movie) {
 }
 
 export async function unlikeMovie(movieId) {
-  const res = await fetch(`${mainApiURL}/movies/${movieId}`, {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
       token: localStorage.getItem('token') || '',
