@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -9,6 +8,7 @@ import { propertiesToFilterBy } from "../../consts/other";
 import useWindowDimensions from "../../hooks/getWindowDimensions";
 import { getCardsNumberByWidth } from "../../utils/other";
 import { nothingFound, typeKeywords } from "../../consts/errors";
+import { getSavedMovies, likeMovie, unlikeMovie } from "../../utils/MainApi";
 
 const Movies = () => {
   const { width } = useWindowDimensions();
@@ -16,6 +16,7 @@ const Movies = () => {
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const [isMoreAvaliable, setIsMoreAvaliable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,19 +28,41 @@ const Movies = () => {
   const filteredMoviesNumber = filteredMovies.length;
   const shownMoviesNumber = shownMovies.length;
 
+  function proccessMovieLikes(movies, savedMovies) {
+    return movies.map((movie) => {
+      if (savedMovies.find((m) => m.movieId === movie.id)) {
+        movie.isLiked = true;
+      } else {
+        movie.isLiked = false;
+      }
+
+      return movie;
+    });
+  }
+
+  async function loadMovies() {
+    try {
+      const movies = await getMovies();
+
+      const proccessedMovies = proccessMovieLikes(movies, savedMovies);
+
+      setAllMovies(proccessedMovies);
+
+      return proccessedMovies;
+
+    } catch (err) {
+      console.error("Ошибка при загрузке фильмов");
+    }
+
+  }
+
   async function handleSubmit(searchValue, shortFilmsOnly) {
     setIsLoading(true);
     let movies = allMovies;
 
     // Получение всех фильмов
     if (allMovies.length === 0) {
-      try {
-        movies = await getMovies();
-        setAllMovies(movies);
-
-      } catch (err) {
-        console.error("Ошибка при загрузке фильмов");
-      }
+      movies = await loadMovies();
     }
 
     // Фильтрация фильмов
@@ -67,6 +90,31 @@ const Movies = () => {
     }
   }
 
+  function handleLikeClick(movie) {
+    if (movie.isLiked) {
+      unlikeMovie(movie.id)
+        .then((movie) => {
+          const unlikedMovieId = movie.movieId;
+
+          setShownMovies(shownMovies.map((movie) => movie.id === unlikedMovieId ? { ...movie, isLiked: false } : movie));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+    } else {
+      likeMovie(movie)
+        .then((movie) => {
+          const likedMovieId = movie.movieId;
+
+          setShownMovies(shownMovies.map((movie) => movie.id === likedMovieId ? { ...movie, isLiked: true } : movie));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
+
   useEffect(() => {
     if (shownMoviesNumber >= filteredMoviesNumber) {
       setIsMoreAvaliable(false);
@@ -76,24 +124,29 @@ const Movies = () => {
     }
   }, [shownMoviesNumber, filteredMoviesNumber]);
 
-  // useEffect(() => {
-  //   if (shownMoviesNumber === cardsNumber.initial) {
-  //     setShownMovies(filteredMovies.slice(0, cardsNumber.initial));
-  //   }
-  // }, [shownMoviesNumber, cardsNumber, filteredMovies]);
-
   useEffect(() => {
     const ls = JSON.parse(localStorage.getItem('previousSearch'));
 
     if (ls) {
       const { searchValue, shortFilmsOnly, filteredMovies } = ls;
 
-      setSearchValue(searchValue);
-      setShortFilmsOnly(shortFilmsOnly);
-      setFilteredMovies(filteredMovies);
-      setShownMovies(filteredMovies.slice(0, cardsNumber.initial));
+      // Получение сохраненных фильмов
+      getSavedMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies);
+
+          const proccessedMovies = proccessMovieLikes(filteredMovies, savedMovies);
+
+          setSearchValue(searchValue);
+          setShortFilmsOnly(shortFilmsOnly);
+          setFilteredMovies(proccessedMovies);
+          setShownMovies(proccessedMovies.slice(0, cardsNumber.initial));
+
+        })
+        .catch(() => {
+          console.error("Ошибка при получении сохраненных фильмов");
+        });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -114,6 +167,7 @@ const Movies = () => {
           movies={shownMovies}
           onMoreButtonClick={handleMoreButtonClick}
           noDataTitle={filteredMoviesNumber === 0 && searchValue !== '' ? nothingFound : typeKeywords}
+          onLikeClick={handleLikeClick}
         />
       </main>
       <Footer />

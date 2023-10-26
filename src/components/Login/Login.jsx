@@ -9,18 +9,21 @@ import Divider from '../Divider/Divider';
 import { login } from '../../utils/MainApi';
 import logo from '../../images/logo.svg';
 import './Login.css';
+import userDataContext from '../../contexts/userDataContext';
 
 const Login = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
+  const { setUser } = useContext(userDataContext);
   const navigate = useNavigate();
 
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   function handleLogin() {
     login(values)
-      .then(({ token }) => {
+      .then(({ token, ...userData }) => {
         localStorage.setItem('token', token);
         setIsLogged(true);
+        setUser(userData);
 
         navigate('/movies');
       })
@@ -28,7 +31,7 @@ const Login = () => {
         console.log('Ошибка авторизации');
       });
   }
-  
+
   useEffect(() => {
     if (isLogged) {
       navigate('/movies');

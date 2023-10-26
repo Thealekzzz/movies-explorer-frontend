@@ -9,18 +9,21 @@ import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { useContext, useEffect } from 'react';
 import { register } from '../../utils/MainApi';
 import IsLoggedContext from '../../contexts/IsLoggedContext';
+import userDataContext from '../../contexts/userDataContext';
 
 const Register = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
+  const { setUser } = useContext(userDataContext);
   const navigate = useNavigate();
 
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
   function handleRegister() {
     register(values)
-      .then(({ token }) => {
+      .then(({ token, ...userData }) => {
         localStorage.setItem('token', token);
         setIsLogged(true);
+        setUser(userData);
 
         navigate('/movies');
       })

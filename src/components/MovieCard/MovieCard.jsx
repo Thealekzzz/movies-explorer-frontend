@@ -5,9 +5,13 @@ import LikeButton from '../LikeButton/LikeButton';
 import Divider from '../Divider/Divider';
 import { getTimeByDuration } from '../../utils/other';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onLikeClick }) => {
   const { image, nameRU, duration, isLiked, trailerLink } = movie;
   const [hours, minutes] = getTimeByDuration(duration);
+
+  function handleLikeClick() {
+    onLikeClick(movie);
+  }
 
   return (
     <div className="card">
@@ -15,14 +19,14 @@ const MovieCard = ({ movie }) => {
         <div
           className="card__image"
           style={{
-            background: `center / cover url(https://api.nomoreparties.co${image.url})`,
+            background: `center / cover url(${image.url ? `https://api.nomoreparties.co/${image.url}` : image})`,
           }}>
         </div>
       </a>
 
       <div className="card__title-wrapper">
         <p className="card__title">{nameRU}</p>
-        <LikeButton isLiked={isLiked} />
+        <LikeButton isLiked={isLiked} onClick={handleLikeClick} />
       </div>
 
       <Divider type={'horizontal'} />
@@ -35,6 +39,7 @@ const MovieCard = ({ movie }) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.object,
+  onLikeClick: PropTypes.func,
 };
 
 export default MovieCard;

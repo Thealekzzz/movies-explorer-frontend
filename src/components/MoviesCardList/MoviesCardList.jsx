@@ -6,7 +6,7 @@ import PreLoader from '../PreLoader/PreLoader';
 import NoData from '../NoData/NoData';
 
 
-const MoviesCardList = ({ isLoading, isMoreAvaliable, movies, onMoreButtonClick, noDataTitle }) => {
+const MoviesCardList = ({ isLoading, isMoreAvaliable, movies, onMoreButtonClick, noDataTitle, onLikeClick }) => {
   return isLoading ? (
     <div className="loader">
       <PreLoader />
@@ -16,8 +16,8 @@ const MoviesCardList = ({ isLoading, isMoreAvaliable, movies, onMoreButtonClick,
       {movies.length ? (
         <ul className="cards__list">
           {movies.map((movie) => (
-            <li key={movie.id} className='cards__item'>
-              <MovieCard movie={movie} />
+            <li key={movie.id || movie.movieId} className='cards__item'>
+              <MovieCard movie={movie} onLikeClick={onLikeClick} />
             </li>
           ))}
         </ul>
@@ -40,6 +40,7 @@ MoviesCardList.propTypes = {
   movies: PropTypes.array,
   onMoreButtonClick: PropTypes.func,
   noDataTitle: PropTypes.string,
+  onLikeClick: PropTypes.func,
 };
 
 export default MoviesCardList;

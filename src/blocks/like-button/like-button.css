@@ -3,3 +3,7 @@
   background-color: transparent;
   border: none;
 }
+
+.like-button:active {
+  transform: scale(.8);
+}

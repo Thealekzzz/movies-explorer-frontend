@@ -3,13 +3,15 @@ import { useContext } from 'react';
 import { PropTypes } from 'prop-types';
 
 import IsLoggedContext from '../../contexts/IsLoggedContext';
+import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
 
 import './Header.css';
+
 import logoIcon from '../../images/logo.svg';
 import burgerIcon from '../../images/burger.svg';
-import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
-import ProfileButton from '../ProfileButton/ProfileButton';
 import useWindowDimensions from '../../hooks/getWindowDimensions';
+
+import ProfileButton from '../ProfileButton/ProfileButton';
 
 const links = {
   '/movies': 'Фильмы',
