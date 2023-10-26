@@ -47,6 +47,7 @@ const SavedMovies = () => {
       const unlikedMovieId = movie.movieId;
 
       setFilteredMovies(filteredMovies.filter((movie) => movie.movieId !== unlikedMovieId));
+      setAllMovies(allMovies.filter((movie) => movie.movieId !== unlikedMovieId));
 
     })
     .catch(() => {
