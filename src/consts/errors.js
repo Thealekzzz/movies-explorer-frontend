@@ -7,4 +7,5 @@ export const savingProfileError = 'При обновлении профиля п
 export const wrongCredentials = 'Вы ввели неправильный логин или пароль.';
 export const emailAlreadyExists = 'Пользователь с таким email уже существует.';
 export const registerError = 'При регистрации пользователя произошла ошибка.';
+export const wrongEmail = 'Введён некоррректный email.';
 

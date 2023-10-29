@@ -10,6 +10,7 @@ import Header from '../Header/Header';
 import './Profile.css';
 import { logout, patchMe } from '../../utils/MainApi';
 import { savingProfileError } from '../../consts/errors';
+import { compareObjects } from '../../utils/other';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Profile = () => {
             error: false,
             message: 'Данные сохранены',
           });
-          
+
         }, 100);
 
         setTimeout(() => {
@@ -119,7 +120,11 @@ const Profile = () => {
           >{status.message}</p>
 
           {editMode ? (
-            <button className="profile__save-button hoverable" onClick={handleSaveData} disabled={!isValid}>Сохранить</button>
+            <button
+              className={`profile__save-button hoverable`}
+              onClick={handleSaveData}
+              disabled={!isValid || compareObjects(user, values)}
+            >Сохранить</button>
 
           ) : (
 

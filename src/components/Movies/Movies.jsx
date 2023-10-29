@@ -15,6 +15,7 @@ const Movies = () => {
 
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredShortMovies, setFilteredShortMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
 
@@ -63,12 +64,16 @@ const Movies = () => {
     // Получение всех фильмов
     if (allMovies.length === 0) {
       movies = await loadMovies();
+      setAllMovies(movies);
     }
 
     // Фильтрация фильмов
     const filtered = movies.filter((movie) => (
       propertiesToFilterBy.some((property) => movie[property].toLowerCase().includes(searchValue.toLowerCase()))
-      && (shortFilmsOnly && movie.duration <= 40 || !shortFilmsOnly)
+    ));
+
+    const filteredShort = filtered.filter((movie) => (
+      shortFilmsOnly && movie.duration <= 40
     ));
 
     // Сохранение запроса и результатов в LS
@@ -76,16 +81,17 @@ const Movies = () => {
     localStorage.setItem('previousSearch', JSON.stringify(payload));
 
     setFilteredMovies(filtered);
-    setShownMovies(filtered.slice(0, cardsNumber.initial));
+    setFilteredShortMovies(filteredShort);
+    setShownMovies((shortFilmsOnly ? filteredShort : filtered).slice(0, cardsNumber.initial));
     setIsLoading(false);
   }
 
   function handleMoreButtonClick() {
     setShownMovies((prev) => (
-      [...prev, ...filteredMovies.slice(shownMoviesNumber, shownMoviesNumber + cardsNumber.new)]
+      [...prev, ...(shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(shownMoviesNumber, shownMoviesNumber + cardsNumber.new)]
     ));
 
-    if (shownMoviesNumber >= filteredMoviesNumber) {
+    if (shortFilmsOnly && (shownMoviesNumber >= filteredShortMovies) || !shortFilmsOnly && (shownMoviesNumber >= filteredMoviesNumber)) {
       setIsMoreAvaliable(false);
     }
   }
@@ -116,7 +122,7 @@ const Movies = () => {
   }
 
   useEffect(() => {
-    if (shownMoviesNumber >= filteredMoviesNumber) {
+    if (shortFilmsOnly && (shownMoviesNumber >= filteredShortMovies.length) || !shortFilmsOnly && (shownMoviesNumber >= filteredMoviesNumber)) {
       setIsMoreAvaliable(false);
 
     } else {
@@ -137,10 +143,15 @@ const Movies = () => {
 
           const proccessedMovies = proccessMovieLikes(filteredMovies, savedMovies);
 
+          const filteredShort = proccessedMovies.filter((movie) => (
+            shortFilmsOnly && movie.duration <= 40
+          ));
+
           setSearchValue(searchValue);
           setShortFilmsOnly(shortFilmsOnly);
           setFilteredMovies(proccessedMovies);
-          setShownMovies(proccessedMovies.slice(0, cardsNumber.initial));
+          setFilteredShortMovies(filteredShort);
+          setShownMovies((shortFilmsOnly ? filteredShort : proccessedMovies).slice(0, cardsNumber.initial));
 
         })
         .catch(() => {
@@ -149,6 +160,10 @@ const Movies = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setShownMovies((shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(0, cardsNumber.initial));
+    
+  }, [shortFilmsOnly]);
 
   return (
     <>

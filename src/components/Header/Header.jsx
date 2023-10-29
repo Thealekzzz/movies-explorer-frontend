@@ -34,16 +34,18 @@ const Header = ({ isColored }) => {
           <Link to={'/'} className='hoverable'>
             <img src={logoIcon} alt="Логотип" className="header__logo" />
           </Link>
-          <nav className="header__nav">
-            {Object.entries(links).map(([link, name]) => (
-              <Link
-                key={name}
-                className={`header__link hoverable ${location.pathname === link ? 'header__link_active' : ''}`}
-                to={link}
-              >{name}</Link>
-            ))}
-            {/* <Link className="header__link hoverable" to={'/saved-movies'}>Сохранённые фильмы</Link> */}
-          </nav>
+          {isLogged && (
+            <nav className="header__nav">
+              {Object.entries(links).map(([link, name]) => (
+                <Link
+                  key={name}
+                  className={`header__link hoverable ${location.pathname === link ? 'header__link_active' : ''}`}
+                  to={link}
+                >{name}</Link>
+              ))}
+            </nav>
+
+          )}
         </div>
 
         <div className="header__right">
