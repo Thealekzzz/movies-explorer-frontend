@@ -64,10 +64,10 @@ const Profile = () => {
   async function handleLogout() {
     setIsLogged(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('search');
+    localStorage.removeItem('previousSearch');
     await logout();
 
-    navigate('/signin');
+    navigate('/');
   }
 
   return (

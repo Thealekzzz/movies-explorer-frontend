@@ -5,7 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import { getMovies } from "../../utils/MoviesApi";
 import { propertiesToFilterBy } from "../../consts/other";
-import useWindowDimensions from "../../hooks/getWindowDimensions";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { getCardsNumberByWidth } from "../../utils/other";
 import { nothingFound, typeKeywords } from "../../consts/errors";
 import { getSavedMovies, likeMovie, unlikeMovie } from "../../utils/MainApi";

@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import useWindowDimensions from '../../hooks/getWindowDimensions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
 import ProfileButton from '../ProfileButton/ProfileButton';
 

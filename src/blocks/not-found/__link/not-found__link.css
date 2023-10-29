@@ -6,6 +6,8 @@
 
   margin-top: auto;
   margin-bottom: 60px;
+
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {

@@ -9,7 +9,7 @@ import './Header.css';
 
 import logoIcon from '../../images/logo.svg';
 import burgerIcon from '../../images/burger.svg';
-import useWindowDimensions from '../../hooks/getWindowDimensions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 import ProfileButton from '../ProfileButton/ProfileButton';
 

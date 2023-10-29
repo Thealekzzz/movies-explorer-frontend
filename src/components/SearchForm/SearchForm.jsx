@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
-import useWindowDimensions from '../../hooks/getWindowDimensions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { emptySearchInput } from '../../consts/errors';
 
 import Toggle from '../Toggle/Toggle';
