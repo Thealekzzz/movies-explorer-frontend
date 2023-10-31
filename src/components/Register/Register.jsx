@@ -11,6 +11,7 @@ import { register } from '../../utils/MainApi';
 import IsLoggedContext from '../../contexts/IsLoggedContext';
 import userDataContext from '../../contexts/userDataContext';
 import { EMAIL_ALREADY_EXISTS, REGISTER_ERROR } from '../../consts/errors';
+import PreLoader from '../PreLoader/PreLoader';
 
 const Register = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
@@ -19,7 +20,7 @@ const Register = () => {
 
   const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
-  
+
   const [isLoading, setIsLoading] = useState(false);
 
   function handleRegister() {
@@ -74,6 +75,7 @@ const Register = () => {
             id="name"
             className="auth__form-input"
             placeholder='Иван'
+            disabled={isLoading}
             minLength={2}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -92,6 +94,7 @@ const Register = () => {
             id="email"
             className="auth__form-input"
             placeholder='Example@domain.co'
+            disabled={isLoading}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email || ''}
@@ -107,8 +110,10 @@ const Register = () => {
             type="password"
             name='password'
             id="password"
+            minLength={5}
             className="auth__form-input"
             placeholder='********'
+            disabled={isLoading}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password || ''}
@@ -122,7 +127,17 @@ const Register = () => {
         <p
           className={`auth__status-text ${status.visible ? '' : 'auth__status-text_hidden'} ${status.error ? 'auth__status-text_error' : ''}`}
         >{status.message}</p>
-        <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleRegister}>Зарегистрироваться</button>
+        <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleRegister}>
+          {isLoading ? (
+            <div className="loader">
+              <PreLoader isSmall={true} color='black' />
+            </div>
+          ) : (
+            <>
+              Зарегистрироваться
+            </>
+          )}
+        </button>
         <p className="auth__action-text">Уже зарегистрированы? <Link to='/signin' className='auth__action-link hoverable'>Войти</Link></p>
       </div>
     </main>

@@ -11,6 +11,7 @@ import logo from '../../images/logo.svg';
 import './Login.css';
 import userDataContext from '../../contexts/userDataContext';
 import { WRONG_CREDENTIALS } from '../../consts/errors';
+import PreLoader from '../PreLoader/PreLoader';
 
 const Login = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
@@ -74,6 +75,7 @@ const Login = () => {
             id="email"
             className="auth__form-input"
             placeholder='Example@domain.co'
+            disabled={isLoading}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email || ''}
@@ -89,8 +91,10 @@ const Login = () => {
             type="password"
             name='password'
             id="password"
+            minLength={5}
             className="auth__form-input"
             placeholder='********'
+            disabled={isLoading}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password || ''}
@@ -105,7 +109,17 @@ const Login = () => {
         <p
           className={`auth__status-text ${status.visible ? '' : 'auth__status-text_hidden'} ${status.error ? 'auth__status-text_error' : ''}`}
         >{status.message}</p>
-        <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleLogin}>Войти</button>
+        <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleLogin}>
+          {isLoading ? (
+            <div className="loader">
+              <PreLoader isSmall={true} color='black' />
+            </div>
+          ) : (
+            <>
+              Войти
+            </>
+          )}
+        </button>
         <p className="auth__action-text">Еще не зарегистрированы? <Link to='/signup' className='auth__action-link hoverable'>Регистрация</Link></p>
       </div>
     </main>
