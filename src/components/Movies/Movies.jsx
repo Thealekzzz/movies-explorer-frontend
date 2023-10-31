@@ -25,6 +25,7 @@ const Movies = () => {
 
   const [searchValue, setSearchValue] = useState('');
   const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
+  const [wasSearchPerformed, setWasSearchPerformed] = useState(false);
 
   const cardsNumber = getCardsNumberByWidth(width);
   const filteredMoviesNumber = filteredMovies.length;
@@ -60,6 +61,7 @@ const Movies = () => {
 
   async function handleSubmit(searchValue, shortFilmsOnly) {
     setIsLoading(true);
+    setWasSearchPerformed(true);
     let movies = allMovies;
 
     // Получение всех фильмов
@@ -174,7 +176,7 @@ const Movies = () => {
           isMoreAvaliable={isMoreAvaliable}
           movies={shownMovies}
           onMoreButtonClick={handleMoreButtonClick}
-          noDataTitle={filteredMoviesNumber === 0 && searchValue !== '' ? NOTHING_FOUND : TYPE_KEYWORDS}
+          noDataTitle={wasSearchPerformed ? NOTHING_FOUND : TYPE_KEYWORDS}
           onLikeClick={handleLikeClick}
         />
       </main>

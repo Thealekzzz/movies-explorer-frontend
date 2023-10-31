@@ -18,21 +18,11 @@ const SavedMovies = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  // function proccessMovieLikes(movies, savedMovies) {
-  //   return movies.map((movie) => {
-  //     if (savedMovies.find((m) => m.movieId === movie.id)) {
-  //       movie.isLiked = true;
-  //     } else {
-  //       movie.isLiked = false;
-  //     }
-
-  //     return movie;
-  //   });
-  // }
+  const [wasSearchPerformed, setWasSearchPerformed] = useState(false);
 
   async function handleSubmit(searchValue, shortFilmsOnly) {
     setIsLoading(true);
+    setWasSearchPerformed(true);
 
     // Фильтрация фильмов
     const filtered = allMovies.filter((movie) => (
@@ -87,7 +77,7 @@ const SavedMovies = () => {
           isLoading={isLoading}
           movies={filteredMovies}
           onLikeClick={handleLikeClick}
-          noDataTitle={filteredMovies.length === 0 && searchValue !== '' ? NOTHING_FOUND : NO_SAVED_MOVIES}
+          noDataTitle={wasSearchPerformed ? NOTHING_FOUND : NO_SAVED_MOVIES}
         />
       </main>
       <Footer />
