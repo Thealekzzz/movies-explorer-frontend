@@ -129,9 +129,7 @@ const Register = () => {
         >{status.message}</p>
         <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleRegister}>
           {isLoading ? (
-            <div className="loader">
-              <PreLoader isSmall={true} color='black' />
-            </div>
+            <PreLoader isSmall={true} color='black' />
           ) : (
             <>
               Зарегистрироваться

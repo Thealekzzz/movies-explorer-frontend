@@ -111,9 +111,7 @@ const Login = () => {
         >{status.message}</p>
         <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleLogin}>
           {isLoading ? (
-            <div className="loader">
-              <PreLoader isSmall={true} color='black' />
-            </div>
+            <PreLoader isSmall={true} color='black' />
           ) : (
             <>
               Войти
