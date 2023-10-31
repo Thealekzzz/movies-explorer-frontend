@@ -2,6 +2,6 @@
   transition: opacity 0.2s;
 }
 
-.hoverable:hover {
+.hoverable:not(:disabled):hover {
   opacity: .7;
 }
