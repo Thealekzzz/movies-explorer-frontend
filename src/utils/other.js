@@ -1,4 +1,4 @@
-import { cardsByWidth } from "../consts/other";
+import { CARDS_BY_WIDTH } from "../consts/other";
 
 export function checkResponse(response) {
   if (response.ok) {
@@ -9,12 +9,12 @@ export function checkResponse(response) {
 }
 
 export function getCardsNumberByWidth(width) {
-  const widths = Object.keys(cardsByWidth).sort((a, b) => a - b);
+  const widths = Object.keys(CARDS_BY_WIDTH).sort((a, b) => a - b);
   const w = widths.find((w) => width < w);
 
   const key = w || Math.max(...widths);
 
-  return cardsByWidth[key];
+  return CARDS_BY_WIDTH[key];
 }
 
 export function getTimeByDuration(duration) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { emptySearchInput } from '../../consts/errors';
+import { EMPTY_SEARCH_INPUT } from '../../consts/errors';
 
 import Toggle from '../Toggle/Toggle';
 import Divider from '../Divider/Divider';
@@ -51,7 +51,7 @@ const SearchForm = ({
             placeholder='Фильм'
           />
           <button className="search__button hoverable">Найти</button>
-          <p className={`search__error ${isErrorVisible ? '' : 'search__error_hidden'}`}>{emptySearchInput}</p>
+          <p className={`search__error ${isErrorVisible ? '' : 'search__error_hidden'}`}>{EMPTY_SEARCH_INPUT}</p>
         </form>
 
         {width > 700 && (<>

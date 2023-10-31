@@ -10,7 +10,7 @@ import { login } from '../../utils/MainApi';
 import logo from '../../images/logo.svg';
 import './Login.css';
 import userDataContext from '../../contexts/userDataContext';
-import { wrongCredentials } from '../../consts/errors';
+import { WRONG_CREDENTIALS } from '../../consts/errors';
 
 const Login = () => {
   const { isLogged, setIsLogged } = useContext(IsLoggedContext);
@@ -20,22 +20,27 @@ const Login = () => {
   const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, errors, isValid, handleChange, handleBlur } = useFormAndValidation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleLogin() {
     resetStatus();
+    setIsLoading(true);
     login(values)
       .then(({ token, ...userData }) => {
         localStorage.setItem('token', token);
         setIsLogged(true);
         setUser(userData);
 
+        setIsLoading(false);
         navigate('/movies');
       })
       .catch(() => {
+        setIsLoading(false);
         setTimeout(() => {
           setStatus({
             visible: true,
             error: true,
-            message: wrongCredentials,
+            message: WRONG_CREDENTIALS,
           });
 
         }, 100);
@@ -100,7 +105,7 @@ const Login = () => {
         <p
           className={`auth__status-text ${status.visible ? '' : 'auth__status-text_hidden'} ${status.error ? 'auth__status-text_error' : ''}`}
         >{status.message}</p>
-        <button className="auth__button hoverable" disabled={!isValid} onClick={handleLogin}>Войти</button>
+        <button className="auth__button hoverable" disabled={!isValid || isLoading} onClick={handleLogin}>Войти</button>
         <p className="auth__action-text">Еще не зарегистрированы? <Link to='/signup' className='auth__action-link hoverable'>Регистрация</Link></p>
       </div>
     </main>

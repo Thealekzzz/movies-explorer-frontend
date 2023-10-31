@@ -1,6 +1,6 @@
-export const propertiesToFilterBy = ['nameRU', 'nameEN'];
+export const FIELDS_TO_FILTER_BY = ['nameRU', 'nameEN'];
 
-export const cardsByWidth = {
+export const CARDS_BY_WIDTH = {
   1280: {
     initial: 16,
     new: 4,

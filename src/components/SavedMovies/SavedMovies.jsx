@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
-import { propertiesToFilterBy } from "../../consts/other";
-import { getSavedMovies, unlikeMovie } from "../../utils/MainApi";
-import { noSavedMovies, nothingFound } from "../../consts/errors";
+import { FIELDS_TO_FILTER_BY } from "../../consts/other";
+import { unlikeMovie } from "../../utils/MainApi";
+import { NO_SAVED_MOVIES, NOTHING_FOUND } from "../../consts/errors";
+import savedMoviesContext from "../../contexts/savedMoviesContext";
 
 const SavedMovies = () => {
+  const { savedMovies, setSavedMovies } = useContext(savedMoviesContext);
+
   const [searchValue, setSearchValue] = useState('');
   const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
 
@@ -33,7 +36,7 @@ const SavedMovies = () => {
 
     // Фильтрация фильмов
     const filtered = allMovies.filter((movie) => (
-      propertiesToFilterBy.some((property) => movie[property].toLowerCase().includes(searchValue.toLowerCase()))
+      FIELDS_TO_FILTER_BY.some((property) => movie[property].toLowerCase().includes(searchValue.toLowerCase()))
       && (shortFilmsOnly && movie.duration <= 40 || !shortFilmsOnly)
     ));
 
@@ -46,6 +49,7 @@ const SavedMovies = () => {
     .then((movie) => {
       const unlikedMovieId = movie.movieId;
 
+      setSavedMovies(allMovies.filter((movie) => movie.movieId !== unlikedMovieId));
       setFilteredMovies(filteredMovies.filter((movie) => movie.movieId !== unlikedMovieId));
       setAllMovies(allMovies.filter((movie) => movie.movieId !== unlikedMovieId));
 
@@ -56,31 +60,16 @@ const SavedMovies = () => {
   }
 
   useEffect(() => {
-    // Получение сохраненных фильмов
-    getSavedMovies()
-      .then((movies) => {
+    const proccessedMovies = savedMovies.map((movie) => {
+      movie.isLiked = true;
+      return movie;
+    })
 
-        const proccessedMovies = movies.map((movie) => {
-          movie.isLiked = true;
-          return movie;
-        })
+    setAllMovies(proccessedMovies);
+    setFilteredMovies(proccessedMovies);
 
-        setAllMovies(proccessedMovies);
-        setFilteredMovies(proccessedMovies);
+    console.log(proccessedMovies);
 
-        console.log(proccessedMovies);
-
-        // const proccessedMovies = proccessMovieLikes(filteredMovies, movies);
-
-        // // setSearchValue(searchValue);
-        // // setShortFilmsOnly(shortFilmsOnly);
-        // setAllMovies(proccessedMovies);
-        // setFilteredMovies(proccessedMovies);
-
-      })
-      .catch(() => {
-        console.error("Ошибка при лайке");
-      });
   }, []);
 
   return (
@@ -98,7 +87,7 @@ const SavedMovies = () => {
           isLoading={isLoading}
           movies={filteredMovies}
           onLikeClick={handleLikeClick}
-          noDataTitle={filteredMovies.length === 0 && searchValue !== '' ? nothingFound : noSavedMovies}
+          noDataTitle={filteredMovies.length === 0 && searchValue !== '' ? NOTHING_FOUND : NO_SAVED_MOVIES}
         />
       </main>
       <Footer />

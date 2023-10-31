@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { wrongEmail } from '../consts/errors';
+import { WRONG_EMAIL } from '../consts/errors';
 
 function isValidEmail(email) {
   return /\S+@\S+\.\S+/.test(email);
@@ -18,7 +18,7 @@ export function useFormAndValidation() {
     if (type === 'email') {
       setErrors({
         ...errors, [name]: areInputsVisited[name]
-          ? (isValidEmail(value) ? "" : wrongEmail)
+          ? (isValidEmail(value) ? "" : WRONG_EMAIL)
           : ""
       });
       setIsValid(isValidEmail(value));

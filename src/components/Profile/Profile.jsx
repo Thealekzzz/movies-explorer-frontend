@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 
 import './Profile.css';
 import { logout, patchMe } from '../../utils/MainApi';
-import { savingProfileError } from '../../consts/errors';
+import { SAVING_PROFILE_ERROR } from '../../consts/errors';
 import { compareObjects } from '../../utils/other';
 
 const Profile = () => {
@@ -22,6 +22,8 @@ const Profile = () => {
   const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, isValid, handleChange, handleBlur, setValues } = useFormAndValidation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleSetEditMode() {
     setValues({ ...user });
     setEditMode(true);
@@ -32,10 +34,12 @@ const Profile = () => {
   }
 
   function handleSaveData() {
+    setIsLoading(true);
     patchMe({ name: values.name, email: values.email })
       .then((newUserData) => {
         setUser(newUserData);
         setEditMode(false);
+        setIsLoading(false);
 
         setTimeout(() => {
           setStatus({
@@ -52,10 +56,11 @@ const Profile = () => {
 
       })
       .catch(() => {
+        setIsLoading(false);
         setStatus({
           visible: true,
           error: true,
-          message: savingProfileError,
+          message: SAVING_PROFILE_ERROR,
         })
       });
 
@@ -123,7 +128,7 @@ const Profile = () => {
             <button
               className={`profile__save-button hoverable`}
               onClick={handleSaveData}
-              disabled={!isValid || compareObjects(user, values)}
+              disabled={!isValid || compareObjects(user, values) || isLoading}
             >Сохранить</button>
 
           ) : (

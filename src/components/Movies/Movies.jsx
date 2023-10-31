@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import { getMovies } from "../../utils/MoviesApi";
-import { propertiesToFilterBy } from "../../consts/other";
+import { FIELDS_TO_FILTER_BY } from "../../consts/other";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { getCardsNumberByWidth } from "../../utils/other";
-import { nothingFound, typeKeywords } from "../../consts/errors";
-import { getSavedMovies, likeMovie, unlikeMovie } from "../../utils/MainApi";
+import { NOTHING_FOUND, TYPE_KEYWORDS } from "../../consts/errors";
+import { likeMovie, unlikeMovie } from "../../utils/MainApi";
+import savedMoviesContext from "../../contexts/savedMoviesContext";
 
 const Movies = () => {
+  const { savedMovies, setSavedMovies } = useContext(savedMoviesContext);
   const { width } = useWindowDimensions();
 
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [filteredShortMovies, setFilteredShortMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   const [isMoreAvaliable, setIsMoreAvaliable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -69,7 +70,7 @@ const Movies = () => {
 
     // Фильтрация фильмов
     const filtered = movies.filter((movie) => (
-      propertiesToFilterBy.some((property) => movie[property].toLowerCase().includes(searchValue.toLowerCase()))
+      FIELDS_TO_FILTER_BY.some((property) => movie[property].toLowerCase().includes(searchValue.toLowerCase()))
     ));
 
     const filteredShort = filtered.filter((movie) => (
@@ -102,6 +103,7 @@ const Movies = () => {
         .then((movie) => {
           const unlikedMovieId = movie.movieId;
 
+          setSavedMovies(savedMovies.map((movie) => movie.id === unlikedMovieId ? { ...movie, isLiked: false } : movie));
           setShownMovies(shownMovies.map((movie) => movie.id === unlikedMovieId ? { ...movie, isLiked: false } : movie));
         })
         .catch((err) => {
@@ -113,6 +115,7 @@ const Movies = () => {
         .then((movie) => {
           const likedMovieId = movie.movieId;
 
+          setSavedMovies([...savedMovies, movie]);
           setShownMovies(shownMovies.map((movie) => movie.id === likedMovieId ? { ...movie, isLiked: true } : movie));
         })
         .catch((err) => {
@@ -136,32 +139,22 @@ const Movies = () => {
     if (ls) {
       const { searchValue, shortFilmsOnly, filteredMovies } = ls;
 
-      // Получение сохраненных фильмов
-      getSavedMovies()
-        .then((savedMovies) => {
-          setSavedMovies(savedMovies);
+      const proccessedMovies = proccessMovieLikes(filteredMovies, savedMovies);
 
-          const proccessedMovies = proccessMovieLikes(filteredMovies, savedMovies);
+      const filteredShort = proccessedMovies.filter((movie) => movie.duration <= 40);
 
-          const filteredShort = proccessedMovies.filter((movie) => (
-            shortFilmsOnly && movie.duration <= 40
-          ));
-
-          setSearchValue(searchValue);
-          setShortFilmsOnly(shortFilmsOnly);
-          setFilteredMovies(proccessedMovies);
-          setFilteredShortMovies(filteredShort);
-          setShownMovies((shortFilmsOnly ? filteredShort : proccessedMovies).slice(0, cardsNumber.initial));
-
-        })
-        .catch(() => {
-          console.error("Ошибка при получении сохраненных фильмов");
-        });
+      setSearchValue(searchValue);
+      setShortFilmsOnly(shortFilmsOnly);
+      setFilteredMovies(proccessedMovies);
+      setFilteredShortMovies(filteredShort);
+      setShownMovies((shortFilmsOnly ? filteredShort : proccessedMovies).slice(0, cardsNumber.initial));
     }
   }, []);
 
   useEffect(() => {
-    setShownMovies((shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(0, cardsNumber.initial));
+    if (filteredShortMovies.length) {
+      setShownMovies((shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(0, cardsNumber.initial));
+    }
     
   }, [shortFilmsOnly]);
 
@@ -181,7 +174,7 @@ const Movies = () => {
           isMoreAvaliable={isMoreAvaliable}
           movies={shownMovies}
           onMoreButtonClick={handleMoreButtonClick}
-          noDataTitle={filteredMoviesNumber === 0 && searchValue !== '' ? nothingFound : typeKeywords}
+          noDataTitle={filteredMoviesNumber === 0 && searchValue !== '' ? NOTHING_FOUND : TYPE_KEYWORDS}
           onLikeClick={handleLikeClick}
         />
       </main>
