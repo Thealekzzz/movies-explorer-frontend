@@ -11,6 +11,7 @@ import './Profile.css';
 import { logout, patchMe } from '../../utils/MainApi';
 import { SAVING_PROFILE_ERROR } from '../../consts/errors';
 import { compareObjects } from '../../utils/other';
+import PreLoader from '../PreLoader/PreLoader';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -129,7 +130,15 @@ const Profile = () => {
               className={`profile__save-button hoverable`}
               onClick={handleSaveData}
               disabled={!isValid || compareObjects(user, values) || isLoading}
-            >Сохранить</button>
+            >
+              {isLoading ? (
+                <PreLoader isSmall={true} color='black' />
+              ) : (
+                <>
+                  Сохранить
+                </>
+              )}
+            </button>
 
           ) : (
 
