@@ -1,6 +1,9 @@
 .menu__bottom {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
 
   margin: auto 0 90px;
 
