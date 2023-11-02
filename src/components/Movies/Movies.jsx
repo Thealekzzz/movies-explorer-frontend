@@ -133,7 +133,7 @@ const Movies = () => {
     } else {
       setIsMoreAvaliable(true);
     }
-  }, [shownMoviesNumber, filteredMoviesNumber]);
+  }, [shortFilmsOnly, shownMoviesNumber, filteredMoviesNumber, filteredShortMovies]);
 
   useEffect(() => {
     const ls = JSON.parse(localStorage.getItem('previousSearch'));
@@ -154,11 +154,9 @@ const Movies = () => {
   }, []);
 
   useEffect(() => {
-    if (filteredShortMovies.length) {
-      setShownMovies((shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(0, cardsNumber.initial));
-    }
+    setShownMovies((shortFilmsOnly ? filteredShortMovies : filteredMovies).slice(0, cardsNumber.initial));
     
-  }, [shortFilmsOnly]);
+  }, [shortFilmsOnly, filteredShortMovies, filteredMovies]);
 
   return (
     <>
