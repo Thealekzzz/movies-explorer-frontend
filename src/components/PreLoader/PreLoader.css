@@ -1,2 +1,3 @@
 @import url(../../blocks/loader/loader.css);
 @import url(../../blocks/loader/__circle/loader__circle.css);
+@import url(../../blocks/loader/__circle/_small/loader__circle_small.css);

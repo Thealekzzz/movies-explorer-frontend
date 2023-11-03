@@ -14,45 +14,78 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import Menu from '../Menu/Menu';
+import { getMe, getSavedMovies } from '../../utils/MainApi';
+import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
+import SavedMoviesContext from '../../contexts/savedMoviesContext';
+import PreLoader from '../PreLoader/PreLoader';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState({});
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLogged(true);
-    }, 200);
-
-    setTimeout(() => {
-      setUser({
-        name: 'Василий',
-        email: 'haha@google.com',
+    getMe()
+      .then((userData) => {
+        setUser(userData);
+        setIsLogged(true);
+        setIsLoading(false);
       })
-    }, 400);
+      .catch(() => {
+        console.log('Ошибка при получении данных пользователя');
+        setIsLogged(false);
+        setIsLoading(false);
+      });
+
+    getSavedMovies()
+      .then((movies) => {
+        setSavedMovies(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (
     <>
-      <IsLoggedContext.Provider value={isLogged}>
+      <IsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
         <UserDataContext.Provider value={{ user, setUser }}>
           <IsMenuOpenContext.Provider value={{ isMenuOpen, setIsMenuOpen }}>
+            <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
 
-            <Menu />
-            <Routes>
-              <Route path='/' element={<Main />} />
-              <Route path='/movies' element={<Movies />} />
-              <Route path='/saved-movies' element={<SavedMovies />} />
-              <Route path='/signin' element={<Login />} />
-              <Route path='/signup' element={<Register />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/*' element={<NotFound />} />
-            </Routes>
+              {isLoading ? (
+                <PreLoader wrapperStyle={{
+                  display: 'flex',
+                  height: '100vh',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }} />
+              ) : (
+                <>
+                  <Menu />
+                  <Routes>
+                    <Route path='/' element={<Main />} />
 
+                    <Route path='/signin' element={<Login />} />
+                    <Route path='/signup' element={<Register />} />
+
+
+                    <Route path='/movies' element={<ProtectedRouteElement element={Movies} isLogged={isLogged} />} />
+                    <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLogged={isLogged} />} />
+
+                    <Route path='/profile' element={<ProtectedRouteElement element={Profile} isLogged={isLogged} />} />
+
+                    <Route path='/*' element={<NotFound />} />
+                  </Routes>
+                </>
+              )}
+
+            </SavedMoviesContext.Provider>
           </IsMenuOpenContext.Provider>
         </UserDataContext.Provider>
-      </IsLoggedContext.Provider>
+      </IsLoggedContext.Provider >
     </>
   );
 }

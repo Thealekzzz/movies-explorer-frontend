@@ -8,6 +8,10 @@
 @import url(../../blocks/profile/__field-input/profile__field-input.css);
 @import url(../../blocks/profile/__field/profile__field.css);
 
+@import url(../../blocks/profile/__footer/profile__footer.css);
+@import url(../../blocks/profile/__status-text/profile__status-text.css);
+@import url(../../blocks/profile/__status-text/_error/profile__status-text_error.css);
+@import url(../../blocks/profile/__status-text/_hidden/profile__status-text_hidden.css);
 @import url(../../blocks/profile/__buttons/profile__buttons.css);
 @import url(../../blocks/profile/__text-button/profile__text-button.css);
 @import url(../../blocks/profile/__text-button/_red/profile__text-button_red.css);

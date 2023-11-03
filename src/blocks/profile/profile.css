@@ -1,6 +1,11 @@
 .profile {
+  box-sizing: border-box;
+
   width: 410px;
   height: calc(100vh - 74px);
+
+  display: flex;
+  flex-direction: column;
 
   margin: 0 auto;
   padding: 74px 0 70px;

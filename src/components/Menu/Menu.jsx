@@ -2,13 +2,14 @@ import { PropTypes } from 'prop-types';
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import useWindowDimensions from '../../hooks/getWindowDimensions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import IsMenuOpenContext from '../../contexts/IsMenuOpenContext';
 import ProfileButton from '../ProfileButton/ProfileButton';
 
 import closeIcon from '../../images/close.svg';
 
 import './Menu.css';
+import IsLoggedContext from '../../contexts/IsLoggedContext';
 
 const links = {
   '/': 'Главная',
@@ -19,6 +20,7 @@ const links = {
 const Menu = () => {
   const location = useLocation();
   const { isMenuOpen, setIsMenuOpen } = useContext(IsMenuOpenContext);
+  const { isLogged } = useContext(IsLoggedContext);
   const { width } = useWindowDimensions();
 
   const currentURL = location.pathname;
@@ -35,7 +37,7 @@ const Menu = () => {
         <nav className="menu__links">
           {Object.entries(links).map(([url, name], i) => (
             <Link
-              to={url}
+              to={isLogged  ? url : '/signin'}
               key={i}
               className={`menu__link hoverable ${currentURL === url ? 'menu__link_active' : ''}`}
               onClick={handleLinkClick}
@@ -43,9 +45,17 @@ const Menu = () => {
           ))}
         </nav>
 
-        <div className="menu__bottom" onClick={handleLinkClick}>
-          <ProfileButton />
-        </div>
+        <nav className="menu__bottom" onClick={handleLinkClick}>
+          {isLogged ? (
+            <ProfileButton />
+
+          ) : (
+            <>
+              <Link className='header__link header__link_small header__link_accent hoverable' to='/signin'>Войти</Link>
+              <Link className='header__link header__link_small hoverable' to='/signup'>Регистрация</Link>
+            </>
+          )}
+        </nav>
 
       </div>
     </section>

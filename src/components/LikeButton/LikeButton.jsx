@@ -7,7 +7,7 @@ import likeActive from '../../images/like_active.svg';
 import likeDelete from '../../images/like_delete.svg';
 import { useState } from 'react';
 
-const LikeButton = ({ isLiked }) => {
+const LikeButton = ({ isLiked, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -18,16 +18,12 @@ const LikeButton = ({ isLiked }) => {
     setIsHovered(false);
   };
 
-  const handleClick = () => {
-    // Обновить стейт в родительском компоненте
-  };
-
   return (
     <button
       className='like-button hoverable'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {isLiked ? (
         isHovered ? (
@@ -46,6 +42,7 @@ const LikeButton = ({ isLiked }) => {
 
 LikeButton.propTypes = {
   isLiked: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default LikeButton;

@@ -17,3 +17,14 @@
 
   cursor: pointer;
 }
+
+.auth__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  cursor: auto;
+
+}
+
+.auth__button:not(:disabled):active {
+  transform: scale(.96);
+}

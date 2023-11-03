@@ -1,26 +1,79 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import userDataContext from '../../contexts/userDataContext';
+import IsLoggedContext from '../../contexts/IsLoggedContext';
 
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import Divider from '../Divider/Divider';
 import Header from '../Header/Header';
 
 import './Profile.css';
+import { logout, patchMe } from '../../utils/MainApi';
+import { SAVING_PROFILE_ERROR } from '../../consts/errors';
+import { compareObjects } from '../../utils/other';
+import PreLoader from '../PreLoader/PreLoader';
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(userDataContext);
+  const { setIsLogged } = useContext(IsLoggedContext);
+
   const [editMode, setEditMode] = useState(false);
+  const [status, setStatus] = useState({ visible: false, error: false, message: '' });
   const { values, isValid, handleChange, handleBlur, setValues } = useFormAndValidation();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSetEditMode() {
     setValues({ ...user });
     setEditMode(true);
   }
 
-  function handleSaveData() {
-    setUser({ ...values });
-    setEditMode(false);
+  function resetStatus() {
+    setStatus((prev) => ({ ...prev, visible: false }));
+  }
 
+  function handleSaveData() {
+    setIsLoading(true);
+    patchMe({ name: values.name, email: values.email })
+      .then((newUserData) => {
+        setUser(newUserData);
+        setEditMode(false);
+        setIsLoading(false);
+
+        setTimeout(() => {
+          setStatus({
+            visible: true,
+            error: false,
+            message: 'Данные сохранены',
+          });
+
+        }, 100);
+
+        setTimeout(() => {
+          resetStatus();
+        }, 2000);
+
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setStatus({
+          visible: true,
+          error: true,
+          message: SAVING_PROFILE_ERROR,
+        })
+      });
+
+  }
+
+  async function handleLogout() {
+    setIsLogged(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('previousSearch');
+    await logout();
+
+    navigate('/');
   }
 
   return (
@@ -67,15 +120,34 @@ const Profile = () => {
           </div>
         </form>
 
-        {editMode ? (
-          <button className="profile__save-button hoverable" onClick={handleSaveData}>Сохранить</button>
+        <div className="profile__footer">
+          <p
+            className={`profile__status-text ${status.visible ? '' : 'profile__status-text_hidden'} ${status.error ? 'profile__status-text_error' : ''}`}
+          >{status.message}</p>
 
-        ) : (
-          <div className="profile__buttons">
-            <button className="profile__text-button hoverable" onClick={handleSetEditMode}>Редактировать</button>
-            <button className="profile__text-button profile__text-button_red hoverable" disabled={!isValid}>Выйти из аккаунта</button>
-          </div>
-        )}
+          {editMode ? (
+            <button
+              className={`profile__save-button hoverable`}
+              onClick={handleSaveData}
+              disabled={!isValid || compareObjects(user, values) || isLoading}
+            >
+              {isLoading ? (
+                <PreLoader isSmall={true} color='black' />
+              ) : (
+                <>
+                  Сохранить
+                </>
+              )}
+            </button>
+
+          ) : (
+
+            <div className="profile__buttons">
+              <button className="profile__text-button hoverable" onClick={handleSetEditMode}>Редактировать</button>
+              <button className="profile__text-button profile__text-button_red hoverable" onClick={handleLogout}>Выйти из аккаунта</button>
+            </div>
+          )}
+        </div>
       </main>
     </>
   );
